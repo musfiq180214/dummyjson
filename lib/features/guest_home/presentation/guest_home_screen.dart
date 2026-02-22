@@ -1,3 +1,5 @@
+import 'package:dummyjson/core/utils/helper.dart';
+import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,23 +9,27 @@ class GuestHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Guest Home"),
+      appBar: GlobalAppBar(
+        title: context.t.guest_home,
+        cangoBack: false,
         actions: [
           PopupMenuButton<String>(
-            icon: const Icon(Icons.menu),
+            icon: const Icon(Icons.menu, color: Colors.green),
             onSelected: (value) async {
               if (value == 'login') {
                 await _handleLogin(context, ref);
               }
             },
-            itemBuilder: (BuildContext context) => const [
-              PopupMenuItem<String>(value: 'login', child: Text('Login')),
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'login',
+                child: Text(context.t.sign_in),
+              ),
             ],
           ),
         ],
       ),
-      body: const Center(child: Text("Welcome Guest")),
+      body: Center(child: Text(context.t.guest_home)),
     );
   }
 

@@ -8,6 +8,7 @@ import 'package:dummyjson/core/service/location_tracking_service.dart';
 import 'package:dummyjson/core/service/permission_service.dart';
 import 'package:dummyjson/core/theme/colors.dart';
 import 'package:dummyjson/core/utils/enums.dart';
+import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/features/auth/providers/login_provider.dart';
 import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dart';
@@ -138,25 +139,25 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
           onTap: (index) =>
               ref.read(bottomNavIndexProvider.notifier).state = index,
           items: [
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.home, color: Colors.black),
-              label: 'Home',
+              label: context.t.home,
             ),
 
             userType == UserType.guest
-                ? const BottomNavigationBarItem(
+                ? BottomNavigationBarItem(
                     icon: Icon(Icons.switch_account, color: Colors.black),
-                    label: 'Guest',
+                    label: context.t.guest,
                   )
-                : const BottomNavigationBarItem(
-                    icon: Icon(Icons.search, color: Colors.black),
-                    label: 'Product List Screen',
+                : BottomNavigationBarItem(
+                    icon: const Icon(Icons.search, color: Colors.black),
+                    label: context.t.product_list,
                   ),
 
             if (userType == UserType.loggedIN) ...[
-              const BottomNavigationBarItem(
+              BottomNavigationBarItem(
                 icon: Icon(Icons.search, color: Colors.black),
-                label: 'Product Search Screen',
+                label: context.t.product_search,
               ),
             ],
           ],

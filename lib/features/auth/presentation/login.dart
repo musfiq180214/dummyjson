@@ -59,16 +59,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               AppSpacing.verticalSpaceXXL,
 
               // Phone Input
-              Text("Please enter your user name"),
+              Text(context.t.please_enter_username),
               AppSpacing.verticalSpaceS,
               UserNameInputField(
                 controller: _usernameController,
-                hintText: "Your Usernamer",
+                hintText: context.t.enter_username,
               ),
 
               // PIN Input
               AppSpacing.verticalSpaceL,
-              Text("Enter Password"),
+              Text(context.t.please_enter_pass),
               AppSpacing.verticalSpaceS,
               //PinputField(pinController: _pinController, length: 4),
               PassInputField(controller: _passController),
@@ -127,16 +127,35 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RichText(
-                      textAlign: TextAlign.center,
                       text: TextSpan(
-                        text: "New to this app?",
+                        text: context.t.new_to_app,
                         style: AppTextStyles.bodyS.copyWith(
                           color: Colors.black,
                         ),
                         children: [
-                          TextSpan(
-                            text: "   ${context.t.register}",
-                            style: AppTextStyles.bodyS.copyWith(color: green),
+                          const TextSpan(text: "   "),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              onPressed: () {
+                                showCustomSnackBar(
+                                  context,
+                                  message: "Not Designed Yet",
+                                  type: MessageType.error,
+                                );
+                              },
+                              child: Text(
+                                context.t.register,
+                                style: AppTextStyles.bodyS.copyWith(
+                                  color: green,
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),

@@ -1,0 +1,19 @@
+{
+    "@@locale": "en",
+    "sign_in": "Sign In",
+    "register": "Register",
+    "home": "Home",
+    "guest": "Guest",
+    "guest_other": "Guest Other",
+    "guest_home": "Guest Home",
+    "welcome_guest": "Welcome Guest",
+    "welcome_guest_another": "Welcome Guest to other screen",
+    "please_enter_username": "Please enter your user name",
+    "enter_username": " Enter Username",
+    "please_enter_pass": "Enter Password",
+    "new_to_app": "New to this app?",
+    "product_list": "Product List",
+    "product_search": "Product Search",
+    "search_product": "Search Product...",
+    "type_to_search": "Type to Search"
+}

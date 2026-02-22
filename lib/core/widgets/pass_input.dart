@@ -1,3 +1,4 @@
+import 'package:dummyjson/core/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:dummyjson/core/theme/colors.dart';
 
@@ -33,7 +34,7 @@ class _PassInputFieldState extends State<PassInputField> {
       obscureText: _obscureText,
       maxLength: widget.maxLength,
       decoration: InputDecoration(
-        hintText: widget.hintText ?? 'Enter password',
+        hintText: widget.hintText ?? context.t.please_enter_pass,
         filled: true,
         fillColor: primaryColor.withOpacity(0.1),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),

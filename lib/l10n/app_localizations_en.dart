@@ -13,4 +13,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get register => 'Register';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get guest_home => 'Guest Home';
+
+  @override
+  String get welcome_guest => 'Welcome Guest';
 }

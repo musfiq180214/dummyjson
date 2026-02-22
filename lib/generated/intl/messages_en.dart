@@ -22,7 +22,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "enter_username": MessageLookupByLibrary.simpleMessage(" Enter Username"),
+    "guest": MessageLookupByLibrary.simpleMessage("Guest"),
+    "guest_home": MessageLookupByLibrary.simpleMessage("Guest Home"),
+    "guest_other": MessageLookupByLibrary.simpleMessage("Guest Other"),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "new_to_app": MessageLookupByLibrary.simpleMessage("New to this app?"),
+    "please_enter_pass": MessageLookupByLibrary.simpleMessage("Enter Password"),
+    "please_enter_username": MessageLookupByLibrary.simpleMessage(
+      "Please enter your user name",
+    ),
+    "product_list": MessageLookupByLibrary.simpleMessage("Product List"),
+    "product_search": MessageLookupByLibrary.simpleMessage("Product Search"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
+    "search_product": MessageLookupByLibrary.simpleMessage("Search Product..."),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "type_to_search": MessageLookupByLibrary.simpleMessage("Type to Search"),
+    "welcome_guest": MessageLookupByLibrary.simpleMessage("Welcome Guest"),
+    "welcome_guest_another": MessageLookupByLibrary.simpleMessage(
+      "Welcome Guest to other screen",
+    ),
   };
 }

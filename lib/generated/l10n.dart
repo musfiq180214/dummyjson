@@ -63,6 +63,126 @@ class S {
   String get register {
     return Intl.message('Register', name: 'register', desc: '', args: []);
   }
+
+  /// `Home`
+  String get home {
+    return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
+
+  /// `Guest`
+  String get guest {
+    return Intl.message('Guest', name: 'guest', desc: '', args: []);
+  }
+
+  /// `Guest Other`
+  String get guest_other {
+    return Intl.message('Guest Other', name: 'guest_other', desc: '', args: []);
+  }
+
+  /// `Guest Home`
+  String get guest_home {
+    return Intl.message('Guest Home', name: 'guest_home', desc: '', args: []);
+  }
+
+  /// `Welcome Guest`
+  String get welcome_guest {
+    return Intl.message(
+      'Welcome Guest',
+      name: 'welcome_guest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome Guest to other screen`
+  String get welcome_guest_another {
+    return Intl.message(
+      'Welcome Guest to other screen',
+      name: 'welcome_guest_another',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your user name`
+  String get please_enter_username {
+    return Intl.message(
+      'Please enter your user name',
+      name: 'please_enter_username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Enter Username`
+  String get enter_username {
+    return Intl.message(
+      ' Enter Username',
+      name: 'enter_username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Password`
+  String get please_enter_pass {
+    return Intl.message(
+      'Enter Password',
+      name: 'please_enter_pass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New to this app?`
+  String get new_to_app {
+    return Intl.message(
+      'New to this app?',
+      name: 'new_to_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product List`
+  String get product_list {
+    return Intl.message(
+      'Product List',
+      name: 'product_list',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Search`
+  String get product_search {
+    return Intl.message(
+      'Product Search',
+      name: 'product_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search Product...`
+  String get search_product {
+    return Intl.message(
+      'Search Product...',
+      name: 'search_product',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type to Search`
+  String get type_to_search {
+    return Intl.message(
+      'Type to Search',
+      name: 'type_to_search',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

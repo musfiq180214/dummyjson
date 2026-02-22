@@ -22,7 +22,31 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "enter_username": MessageLookupByLibrary.simpleMessage(
+      " ইউজারনেম প্রবেশ করুন",
+    ),
+    "guest": MessageLookupByLibrary.simpleMessage("গেস্ট"),
+    "guest_home": MessageLookupByLibrary.simpleMessage("গেস্ট হোম"),
+    "guest_other": MessageLookupByLibrary.simpleMessage("গেস্ট অন্যান্য"),
+    "home": MessageLookupByLibrary.simpleMessage("হোম"),
+    "new_to_app": MessageLookupByLibrary.simpleMessage("এই অ্যাপ এ নতুন?"),
+    "please_enter_pass": MessageLookupByLibrary.simpleMessage(
+      "পাসওয়ার্ড প্রবেশ করুন",
+    ),
+    "please_enter_username": MessageLookupByLibrary.simpleMessage(
+      "অনুগ্রহ পূর্বক ইউজারনেম প্রবেশ করুন",
+    ),
+    "product_list": MessageLookupByLibrary.simpleMessage("প্রোডাক্ট লিস্ট"),
+    "product_search": MessageLookupByLibrary.simpleMessage("প্রোডাক্ট খুঁজুন"),
     "register": MessageLookupByLibrary.simpleMessage("রেজিস্টার"),
+    "search_product": MessageLookupByLibrary.simpleMessage(
+      "প্রোডাক্ট খুঁজুন...",
+    ),
     "sign_in": MessageLookupByLibrary.simpleMessage("সাইন ইন"),
+    "type_to_search": MessageLookupByLibrary.simpleMessage("খুঁজতে টাইপ করুন"),
+    "welcome_guest": MessageLookupByLibrary.simpleMessage("স্বাগতম গেস্ট"),
+    "welcome_guest_another": MessageLookupByLibrary.simpleMessage(
+      "অন্য স্ক্রীন এ স্বাগতম গেস্ট",
+    ),
   };
 }

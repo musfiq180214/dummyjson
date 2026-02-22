@@ -1,5 +1,6 @@
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/theme/colors.dart';
+import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:dummyjson/features/auth/providers/login_provider.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: GlobalAppBar(
-        title: "Home",
+        title: context.t.home,
         cangoBack: false,
         actions: [
           PopupMenuButton<String>(

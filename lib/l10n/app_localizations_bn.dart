@@ -13,4 +13,13 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get register => 'রেজিস্টার';
+
+  @override
+  String get home => 'হোম';
+
+  @override
+  String get guest_home => 'গেস্ট হোম';
+
+  @override
+  String get welcome_guest => 'স্বাগতম গেস্ট';
 }

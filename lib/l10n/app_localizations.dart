@@ -106,6 +106,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Register'**
   String get register;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @guest_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Home'**
+  String get guest_home;
+
+  /// No description provided for @welcome_guest.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Guest'**
+  String get welcome_guest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

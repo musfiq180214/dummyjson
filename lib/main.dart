@@ -100,4 +100,5 @@ class MyApp extends ConsumerWidget {
 
 /*
  valid user: {username: emilys, password: emilyspass}
+ to generate translation: change intl_bn.arb and intl_en.arb and run: dart run intl_utils:generate
 */
