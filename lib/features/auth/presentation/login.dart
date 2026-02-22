@@ -90,9 +90,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         final state = ref.watch(loginProvider);
                         // final user = ref.watch(userProvider);
                         state.whenOrNull(
-                          data: (_) {
+                          data: (_) async {
                             log(ref.read(accessTokenProvider).toString());
                             log(ref.read(refreshTokenProvider).toString());
+                            await ref
+                                .read(loginProvider.notifier)
+                                .login(username: username, pass: pass);
                             AppNavigator.navigatorKey.currentState!
                                 .pushNamedAndRemoveUntil(
                                   RouteNames.landing,

@@ -10,7 +10,13 @@ import 'package:dummyjson/core/theme/colors.dart';
 import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/features/auth/providers/login_provider.dart';
+import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dart';
+import 'package:dummyjson/features/guest_others/presentation/guest_other_screen.dart';
+import 'package:dummyjson/features/home/presentation/home_screen.dart';
 import 'package:dummyjson/features/landing/providers/landing_provider.dart';
+import 'package:dummyjson/features/product_search/presentation/prodcut_search_screen.dart';
+import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
+import 'package:dummyjson/features/product_list/presentation/product_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,36 +29,15 @@ class LandingScreen extends ConsumerStatefulWidget {
 }
 
 class _LandingScreenState extends ConsumerState<LandingScreen> {
-  // final List<Widget> _guestLandingScreens = [
-  //   GuestHomeScreen(),
-  //   HajjGuidanceScreen(
-  //     tittle: 'মক্কা সম্পর্কে জানুন',
-  //     type: 'explore_mecca',
-  //     cangoBack: false,
-  //   ),
-  //   GuidanceScreen(),
-  //   HealthScreen(cangoBack: false),
-  //   // AuthScreen(cangoBack: false,)
-  // ];
-  // final List<Widget> _screens = [
-  //   HomeScreen(),
-  //   HajjGuidanceScreen(
-  //     tittle: 'মক্কা সম্পর্কে জানুন',
-  //     type: 'explore_mecca',
-  //     cangoBack: false,
-  //   ),
-  //   GuidanceScreen(),
-  //   HealthScreen(cangoBack: false),
-  //   ProfileScreen(canGoback: false),
-  // ];
-
-  // final List<Widget> _familyScreens = [
-  //   HomeScreen(),
-  //   FamilyProfile(cangoBack: false),
-  //   GuidanceScreen(),
-  //   HealthScreen(cangoBack: false),
-  //   ProfileScreen(canGoback: false),
-  // ];
+  final List<Widget> _guestLandingScreens = [
+    GuestHomeScreen(),
+    GuestOtherScreen(),
+  ];
+  final List<Widget> _screens = [
+    HomeScreen(),
+    ProductListScreen(),
+    ProductSearchScreen(),
+  ];
 
   bool _hasRequested = false;
 
@@ -106,6 +91,8 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var userType = ref.watch(userTypeProvider);
+
     var index = ref.watch(bottomNavIndexProvider);
 
     if (Platform.isAndroid) {
@@ -138,7 +125,9 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
         showExitPopup(context);
       },
       child: Scaffold(
-        body: LandingScreen1(),
+        body: userType == UserType.guest
+            ? _guestLandingScreens[index]
+            : _screens[index],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: index,
           type: BottomNavigationBarType.shifting,
@@ -149,32 +138,27 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
           onTap: (index) =>
               ref.read(bottomNavIndexProvider.notifier).state = index,
           items: [
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.home, color: Colors.black),
               label: 'Home',
             ),
-            // userType == UserType.familyMember
-            //     ? BottomNavigationBarItem(
-            //         icon: Icon(Icons.switch_account, color: Colors.black),
-            //         label: 'Follow',
-            //       )
-            //     : BottomNavigationBarItem(
-            //         icon: Icon(Icons.search, color: Colors.black),
-            //         label: 'Discover',
-            //       ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined, color: Colors.black),
-              label: 'Guidance',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.health_and_safety_outlined, color: Colors.black),
-              label: 'Health',
-            ),
-            // if (userType != UserType.guest)
-            //   BottomNavigationBarItem(
-            //     icon: Icon(Icons.person_outlined, color: Colors.black),
-            //     label: 'Profile',
-            //   ),
+
+            userType == UserType.guest
+                ? const BottomNavigationBarItem(
+                    icon: Icon(Icons.switch_account, color: Colors.black),
+                    label: 'Guest',
+                  )
+                : const BottomNavigationBarItem(
+                    icon: Icon(Icons.search, color: Colors.black),
+                    label: 'Product List Screen',
+                  ),
+
+            if (userType == UserType.loggedIN) ...[
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.search, color: Colors.black),
+                label: 'Product Search Screen',
+              ),
+            ],
           ],
         ),
       ),
@@ -235,47 +219,5 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
         );
       },
     );
-  }
-}
-
-class LandingScreen1 extends ConsumerWidget {
-  const LandingScreen1({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-        actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.menu),
-            onSelected: (value) async {
-              if (value == 'logout') {
-                await _handleLogout(context, ref);
-              } else if (value == 'others') {
-                _handleOthers();
-              }
-            },
-            itemBuilder: (BuildContext context) => const [
-              PopupMenuItem<String>(value: 'logout', child: Text('Logout')),
-              PopupMenuItem<String>(value: 'others', child: Text('Others')),
-            ],
-          ),
-        ],
-      ),
-      body: const Center(child: Text("Welcome")),
-    );
-  }
-
-  Future<void> _handleLogout(BuildContext context, WidgetRef ref) async {
-    await ref.read(secureStorageProvider).deleteAll();
-    AppLogger.i("Logging Out");
-
-    // Example: Navigate to login screen
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-  }
-
-  void _handleOthers() {
-    AppLogger.i("Others clicked");
   }
 }

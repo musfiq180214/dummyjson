@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/theme/colors.dart';
+import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/sizes.dart';
 import 'package:dummyjson/features/auth/providers/login_provider.dart';
 import 'package:flutter/material.dart';
@@ -83,16 +84,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final accessToken = ref.read(accessTokenProvider) ?? "";
     final refreshToken = ref.read(refreshTokenProvider) ?? "";
 
+    AppNavigator.navigatorKey.currentState!.pushNamedAndRemoveUntil(
+      RouteNames.landing,
+      (route) => false,
+    );
+
     if (accessToken.isNotEmpty && refreshToken.isNotEmpty) {
-      AppNavigator.navigatorKey.currentState!.pushNamedAndRemoveUntil(
-        RouteNames.landing,
-        (route) => false,
-      );
+      ref.read(userTypeProvider.notifier).state = UserType.loggedIN;
     } else {
-      AppNavigator.navigatorKey.currentState!.pushNamedAndRemoveUntil(
-        RouteNames.login,
-        (route) => false,
-      );
+      ref.read(userTypeProvider.notifier).state = UserType.guest;
     }
   }
 

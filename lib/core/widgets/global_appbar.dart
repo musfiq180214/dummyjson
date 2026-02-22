@@ -7,6 +7,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool cangoBack;
   final Function? onBackPress;
   final PreferredSizeWidget? bottom;
+  final List<Widget>? actions; // for second row actions
 
   const GlobalAppBar({
     super.key,
@@ -14,32 +15,65 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.cangoBack,
     this.bottom,
     this.onBackPress,
+    this.actions,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: Text(
-        title,
-        style: AppTextStyles.bodyM.copyWith(color: Colors.green),
-      ),
       backgroundColor: Colors.white,
-      centerTitle: false,
-      actions: [LanguageSwitcher()],
+      elevation: 2,
+      flexibleSpace: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // First row: LanguageSwitcher, taller
+            Container(
+              height: kToolbarHeight * 0.8, // increased height
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: LanguageSwitcher(),
+            ),
+
+            // Second row: back button, title, actions
+            Container(
+              height: kToolbarHeight, // standard toolbar height
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  if (cangoBack)
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.green,
+                      ),
+                      onPressed: () => onBackPress != null
+                          ? onBackPress!()
+                          : Navigator.of(context).pop(),
+                    ),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: AppTextStyles.bodyM.copyWith(
+                        color: Colors.green,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  if (actions != null) ...actions!,
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
       bottom: bottom,
-      leading: cangoBack
-          ? IconButton(
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.green),
-              onPressed: () => onBackPress != null
-                  ? onBackPress!()
-                  : Navigator.of(context).pop(),
-            )
-          : null,
     );
   }
 
   @override
-  Size get preferredSize =>
-      Size.fromHeight(kToolbarHeight + (bottom?.preferredSize.height ?? 0));
+  Size get preferredSize => Size.fromHeight(
+    kToolbarHeight * 1.8 + (bottom?.preferredSize.height ?? 0),
+  ); // adjusted for taller first row
 }
