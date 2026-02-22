@@ -10,4 +10,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sign_in => 'Sign In';
+
+  @override
+  String get register => 'Register';
 }

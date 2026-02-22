@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/theme/colors.dart';
 import 'package:dummyjson/core/utils/sizes.dart';
+import 'package:dummyjson/features/auth/providers/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -73,50 +74,59 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     requestAllPermissions();
 
     // --- Navigate after delay ---
-    Timer(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
+      _navigateNext();
+    });
+  }
+
+  void _navigateNext() {
+    final accessToken = ref.read(accessTokenProvider) ?? "";
+    final refreshToken = ref.read(refreshTokenProvider) ?? "";
+
+    if (accessToken.isNotEmpty && refreshToken.isNotEmpty) {
+      AppNavigator.navigatorKey.currentState!.pushNamedAndRemoveUntil(
+        RouteNames.landing,
+        (route) => false,
+      );
+    } else {
       AppNavigator.navigatorKey.currentState!.pushNamedAndRemoveUntil(
         RouteNames.login,
         (route) => false,
       );
-    });
+    }
   }
 
   Future<void> requestAllPermissions() async {
-    // 1️⃣ Request camera and storage at the same time
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.camera,
-      Permission.storage,
-    ].request();
-
-    if (statuses[Permission.camera]?.isGranted ?? false) {
+    // 1️⃣ Camera permission
+    final cameraStatus = await Permission.camera.request();
+    if (cameraStatus.isGranted) {
       print("Camera granted");
     }
 
-    if (statuses[Permission.storage]?.isGranted ?? false) {
+    // 2️⃣ Storage permission (handle scoped storage on Android 10+)
+    final storageStatus = await Permission.storage.request();
+    if (storageStatus.isGranted) {
       print("Storage granted");
     }
 
-    // 2️⃣ Handle notifications separately
+    // 3️⃣ Notification permission
     if (Platform.isAndroid) {
-      // Android 13+ (API 33+) → request actual notification permission
-      if ((await Permission.notification.status).isDenied &&
-          (await Permission.notification.status).isRestricted == false) {
+      // Android 13+ (API 33+) → request notification permission
+      if (await Permission.notification.isDenied) {
         final notifStatus = await Permission.notification.request();
         if (notifStatus.isGranted) {
           print("Notification granted");
         }
-      } else if (Platform.operatingSystemVersion.contains("Android 12") ||
-          Platform.operatingSystemVersion.contains("Android 11") ||
-          Platform.operatingSystemVersion.contains("Android 10")) {
-        // Android 12 and lower → show info dialog if widget still mounted
+      } else {
+        // Android 10–12 → show info dialog
         if (!mounted) return;
         await showDialog(
           context: context,
           builder: (_) => AlertDialog(
             title: const Text("Notifications"),
             content: const Text(
-              "On your device, notifications are automatically enabled. "
-              "If you want to disable or enable them, go to system settings.",
+              "Notifications are enabled by default on your device. "
+              "To change settings, go to system settings.",
             ),
             actions: [
               TextButton(
@@ -129,7 +139,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       }
     }
 
-    // 3️⃣ iOS → request normally
+    // 4️⃣ iOS → request normally
     if (Platform.isIOS) {
       final notifStatus = await Permission.notification.request();
       if (notifStatus.isGranted) print("Notification granted");

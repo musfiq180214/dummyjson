@@ -10,4 +10,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get sign_in => 'সাইন ইন';
+
+  @override
+  String get register => 'রেজিস্টার';
 }

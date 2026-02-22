@@ -9,6 +9,7 @@ import 'package:dummyjson/core/service/permission_service.dart';
 import 'package:dummyjson/core/theme/colors.dart';
 import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/logger.dart';
+import 'package:dummyjson/features/auth/providers/login_provider.dart';
 import 'package:dummyjson/features/landing/providers/landing_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -237,33 +238,44 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
   }
 }
 
-class LandingScreen1 extends StatelessWidget {
+class LandingScreen1 extends ConsumerWidget {
   const LandingScreen1({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              "Welcome to DummyJSON App",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 16),
-            Text(
-              "This is a demo landing screen",
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-            SizedBox(height: 8),
-            Text(
-              "Start exploring your app here!",
-              style: TextStyle(fontSize: 16),
-            ),
-          ],
-        ),
+      appBar: AppBar(
+        title: const Text("Home"),
+        actions: [
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.menu),
+            onSelected: (value) async {
+              if (value == 'logout') {
+                await _handleLogout(context, ref);
+              } else if (value == 'others') {
+                _handleOthers();
+              }
+            },
+            itemBuilder: (BuildContext context) => const [
+              PopupMenuItem<String>(value: 'logout', child: Text('Logout')),
+              PopupMenuItem<String>(value: 'others', child: Text('Others')),
+            ],
+          ),
+        ],
       ),
+      body: const Center(child: Text("Welcome")),
     );
+  }
+
+  Future<void> _handleLogout(BuildContext context, WidgetRef ref) async {
+    await ref.read(secureStorageProvider).deleteAll();
+    AppLogger.i("Logging Out");
+
+    // Example: Navigate to login screen
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+  }
+
+  void _handleOthers() {
+    AppLogger.i("Others clicked");
   }
 }

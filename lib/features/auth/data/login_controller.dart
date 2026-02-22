@@ -39,16 +39,14 @@ class LoginController extends AutoDisposeAsyncNotifier<dynamic> {
       ref.read(refreshTokenProvider.notifier).state = refreshToken;
       state = AsyncData(response);
     } on DioException catch (dioError, st) {
-      String errorMessage = "Sign in failed";
+      String errorMessage = "Login Failed";
 
       if (dioError.response != null) {
-        if (dioError.response?.statusCode == 403) {
-          errorMessage =
-              dioError.response?.data['error'] ?? "Wrong phone or pin";
-        } else {
-          errorMessage =
-              dioError.response?.data['error'] ??
-              "Something went wrong. Please try again.";
+        final data = dioError.response?.data;
+        if (data != null &&
+            data['message'] != null &&
+            data['message'].toString().isNotEmpty) {
+          errorMessage = data['message'];
         }
       }
 

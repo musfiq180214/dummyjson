@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dummyjson/core/navigation/app_navigator.dart';
-import 'package:dummyjson/core/provider/auth_token_provider.dart';
 import 'package:dummyjson/core/provider/language_provider.dart';
 import 'package:dummyjson/core/theme/app_theme.dart';
 import 'package:dummyjson/core/theme/theme_provider.dart';
@@ -50,11 +49,24 @@ Future<void> initializeToken(ProviderContainer container) async {
   /*  await container
       .read(secureStorageProvider)
       .deleteAll(); */ // Only if needed and While on DEV mode and testing
-  final token =
-      await container.read(secureStorageProvider).read(key: 'authToken') ?? "";
+  final accessToken =
+      await container.read(secureStorageProvider).read(key: 'accessToken') ??
+      "";
 
-  if (token.isNotEmpty) {
-    container.read(authTokenProvider.notifier).state = token;
+  AppLogger.i("Access Token Fetched from secureStorage: $accessToken");
+
+  if (accessToken.isNotEmpty) {
+    container.read(accessTokenProvider.notifier).state = accessToken;
+  }
+
+  final refreshToken =
+      await container.read(secureStorageProvider).read(key: 'refreshToken') ??
+      "";
+
+  AppLogger.i("Refresh Token Fetched from secureStorage: $refreshToken");
+
+  if (refreshToken.isNotEmpty) {
+    container.read(refreshTokenProvider.notifier).state = refreshToken;
   }
 }
 
