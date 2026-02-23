@@ -1,4 +1,5 @@
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,6 @@ class GuestHomeScreen extends ConsumerWidget {
   }
 
   Future<void> _handleLogin(BuildContext context, WidgetRef ref) async {
-    Navigator.pushNamed(context, '/login');
+    Navigator.pushNamed(context, RouteNames.login, arguments: true);
   }
 }

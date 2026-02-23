@@ -18,7 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
+  final bool cangoBack;
+  const LoginScreen({super.key, this.cangoBack = false});
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
@@ -47,7 +48,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final loginState = ref.watch(loginProvider);
     final loginController = ref.read(loginProvider.notifier);
     return Scaffold(
-      appBar: GlobalAppBar(title: "", cangoBack: true),
+      appBar: GlobalAppBar(title: "", cangoBack: widget.cangoBack),
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Padding(
@@ -164,7 +165,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
 
-              const SizedBox(height: 150), // Optional extra space if needed
+              SizedBox(height: 10),
+
+              if (widget.cangoBack == false) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          RouteNames.guestHome,
+                          arguments: true,
+                        );
+                      },
+                      child: Text(
+                        "Continue As Guest",
+                        style: TextStyle(color: primaryColorDark),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),

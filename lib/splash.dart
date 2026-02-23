@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/theme/colors.dart';
+import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/sizes.dart';
+import 'package:dummyjson/features/auth/providers/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -73,6 +75,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     });
 
     Timer(const Duration(seconds: 3), () {
+      final token = ref.read(accessTokenProvider);
+      if (token == null) {
+        ref.read(userTypeProvider.notifier).state = UserType.guest;
+      } else {
+        ref.read(userTypeProvider.notifier).state = UserType.loggedIN;
+      }
       AppNavigator.navigatorKey.currentState!.pushNamedAndRemoveUntil(
         RouteNames.landing,
         (route) => false,

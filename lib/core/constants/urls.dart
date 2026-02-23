@@ -5,4 +5,5 @@ class ApiEndpoints {
   static const String checkAppUpdate = '';
   static const String products = '/products';
   static const String productSearch = '/products/search';
+  static const String updateLocation = '';
 }

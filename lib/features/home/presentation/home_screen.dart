@@ -97,8 +97,11 @@ class HomeScreen extends ConsumerWidget {
     await ref.read(secureStorageProvider).deleteAll();
     AppLogger.i("Logging Out");
 
-    // Example: Navigate to login screen
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      RouteNames.login,
+      (route) => false,
+    );
   }
 
   void _handleOthers() {

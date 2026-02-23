@@ -2,6 +2,7 @@ import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/features/auth/domain/login_response.dart';
 import 'package:dummyjson/features/auth/presentation/login.dart';
 import 'package:dummyjson/features/error_screen/no_internet.dart';
+import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dart';
 import 'package:dummyjson/features/landing/presentation/landing_screen.dart';
 import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
 import 'package:dummyjson/splash.dart';
@@ -16,6 +17,7 @@ abstract class RouteNames {
   static const String splash = '/splash';
   static const String landing = '/landing';
   static const String profile = '/profile';
+  static const String guestHome = '/guest-home';
 }
 
 abstract class AppNavigator {
@@ -28,8 +30,10 @@ abstract class AppNavigator {
 
     switch (settings.name) {
       case RouteNames.login:
+        final cangoBack = settings.arguments as bool? ?? false;
+
         return MaterialPageRoute(
-          builder: (_) => LoginScreen(),
+          builder: (_) => LoginScreen(cangoBack: cangoBack),
           settings: RouteSettings(name: RouteNames.login),
         );
 
@@ -62,6 +66,12 @@ abstract class AppNavigator {
         }
         return MaterialPageRoute(
           builder: (_) => ProfileScreen(user: user),
+          settings: settings,
+        );
+
+      case RouteNames.guestHome:
+        return MaterialPageRoute(
+          builder: (_) => GuestHomeScreen(),
           settings: settings,
         );
       default:
