@@ -3,12 +3,15 @@ import 'dart:io';
 
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/theme/colors.dart';
+import 'package:dummyjson/core/utils/custom_dialog.dart';
 import 'package:dummyjson/core/utils/enums.dart';
+import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/core/utils/sizes.dart';
 import 'package:dummyjson/features/auth/providers/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -97,57 +100,111 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   }
 
   Future<void> requestAllPermissions() async {
-    // 1️⃣ Camera permission
-    final cameraStatus = await Permission.camera.request();
-    if (cameraStatus.isGranted) {
-      print("Camera granted");
+    // Camera
+    await Permission.camera.request();
+
+    // Storage / Photos
+    if (Platform.isAndroid) {
+      await Permission.photos.request();
     }
 
-    // 2️⃣ Storage permission (handle scoped storage on Android 10+)
-    if (Platform.isAndroid) {
-      if (await Permission.photos.isDenied) {
-        final status = await Permission.photos.request();
-        if (status.isGranted) {
-          print("Storage permission granted");
-        }
-      }
-    }
+    // Small delay so system dialogs finish properly
+    await Future.delayed(const Duration(milliseconds: 400));
 
-    // 3️⃣ Notification permission
+    // Notifications (all cases handled)
+    await handleNotificationPermission();
+  }
+
+  Future<void> handleNotificationPermission() async {
     if (Platform.isAndroid) {
-      // Android 13+ (API 33+) → request notification permission
-      if (await Permission.notification.isDenied) {
-        final notifStatus = await Permission.notification.request();
-        if (notifStatus.isGranted) {
-          print("Notification granted");
-        }
-      } else {
-        // Android 10–12 → show info dialog
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      final sdkInt = androidInfo.version.sdkInt;
+
+      debugPrint("Android SDK: $sdkInt");
+
+      // 🔹 Android 12 and below
+      if (sdkInt < 33) {
         if (!mounted) return;
-        await showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text("Notifications"),
-            content: const Text(
-              "Notifications are enabled by default on your device. "
-              "To change settings, go to system settings.",
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text("OK"),
-              ),
-            ],
-          ),
+
+        showCustomSnackBar(
+          context,
+          message:
+              "Notifications are enabled by default on your device.\n"
+              "You can manage them anytime from system settings.",
+          type: MessageType.error,
         );
+
+        return;
+      }
+
+      // 🔹 Android 13+
+      PermissionStatus status = await Permission.notification.status;
+      AppLogger.i("Initial notification status: $status");
+
+      if (status.isGranted) {
+        AppLogger.i("Notification already granted");
+        return;
+      }
+
+      if (status.isDenied) {
+        final result = await Permission.notification.request();
+        AppLogger.i("After request status: $result");
+
+        if (result.isGranted) {
+          AppLogger.i("Notification granted");
+        } else if (result.isPermanentlyDenied) {
+          _showSettingsDialog();
+        }
+      }
+
+      if (status.isPermanentlyDenied) {
+        _showSettingsDialog();
       }
     }
 
-    // 4️⃣ iOS → request normally
+    // 🔹 iOS
     if (Platform.isIOS) {
-      final notifStatus = await Permission.notification.request();
-      if (notifStatus.isGranted) print("Notification granted");
+      final status = await Permission.notification.status;
+
+      if (status.isGranted) {
+        AppLogger.i("iOS notification already granted");
+        return;
+      }
+
+      final result = await Permission.notification.request();
+
+      if (result.isPermanentlyDenied) {
+        _showSettingsDialog();
+      }
     }
+  }
+
+  void _showSettingsDialog() {
+    if (!mounted) return;
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Notification Permission Required"),
+        content: const Text(
+          "Notification permission is permanently denied.\n\n"
+          "Please enable it manually from app settings.",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              openAppSettings();
+            },
+            child: const Text("Open Settings"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override

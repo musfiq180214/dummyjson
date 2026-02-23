@@ -1,7 +1,9 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class GuestHomeScreen extends ConsumerWidget {
   const GuestHomeScreen({super.key});
