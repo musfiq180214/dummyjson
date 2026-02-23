@@ -11,7 +11,7 @@ class GuestOtherScreen extends ConsumerWidget {
     return Scaffold(
       appBar: GlobalAppBar(
         title: context.t.guest_other,
-        cangoBack: false, // enable back if navigated from another screen
+        canGoBack: false, // enable back if navigated from another screen
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.menu, color: Colors.green),

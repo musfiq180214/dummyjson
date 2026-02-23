@@ -48,7 +48,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final loginState = ref.watch(loginProvider);
     final loginController = ref.read(loginProvider.notifier);
     return Scaffold(
-      appBar: GlobalAppBar(title: "", cangoBack: widget.cangoBack),
+      appBar: GlobalAppBar(title: "", canGoBack: widget.cangoBack),
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Padding(

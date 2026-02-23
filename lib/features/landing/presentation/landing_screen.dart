@@ -15,7 +15,7 @@ import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dar
 import 'package:dummyjson/features/guest_others/presentation/guest_other_screen.dart';
 import 'package:dummyjson/features/home/presentation/home_screen.dart';
 import 'package:dummyjson/features/landing/providers/landing_provider.dart';
-import 'package:dummyjson/features/product_search/presentation/prodcut_search_screen.dart';
+import 'package:dummyjson/features/product_search/presentation/product_search_screen.dart';
 import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
 import 'package:dummyjson/features/product_list/presentation/product_list_screen.dart';
 import 'package:flutter/foundation.dart';

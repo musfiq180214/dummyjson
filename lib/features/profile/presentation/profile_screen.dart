@@ -17,7 +17,7 @@ class ProfileScreen extends ConsumerWidget {
     return Scaffold(
       appBar: GlobalAppBar(
         title: "Profile",
-        cangoBack: false,
+        canGoBack: false,
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.menu, color: Colors.green),

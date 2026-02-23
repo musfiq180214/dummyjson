@@ -18,7 +18,7 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: GlobalAppBar(
         title: context.t.home,
-        cangoBack: false,
+        canGoBack: false,
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.menu, color: Colors.green),

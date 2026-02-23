@@ -27,7 +27,7 @@ class _ProductSearchScreenState extends ConsumerState<ProductSearchScreen> {
     return Scaffold(
       appBar: GlobalAppBar(
         title: context.t.product_search,
-        cangoBack: false,
+        canGoBack: false,
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.menu, color: Colors.green),

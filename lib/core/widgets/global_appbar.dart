@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 
 class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final bool cangoBack;
-  final Function? onBackPress;
+  final bool canGoBack;
+  final VoidCallback? onBackPress;
   final PreferredSizeWidget? bottom;
-  final List<Widget>? actions; // for second row actions
+  final List<Widget>? actions;
 
   const GlobalAppBar({
     super.key,
     required this.title,
-    required this.cangoBack,
-    this.bottom,
+    this.canGoBack = true, // default true
     this.onBackPress,
+    this.bottom,
     this.actions,
   });
 
@@ -28,29 +28,31 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // First row: LanguageSwitcher, taller
-            Container(
-              height: kToolbarHeight * 0.8, // increased height
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: LanguageSwitcher(),
+            // First row: LanguageSwitcher
+            // First row: LanguageSwitcher, full width
+            SizedBox(
+              height: kToolbarHeight * 0.8,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Align(
+                  alignment: Alignment.centerRight, // keep button on right
+                  child: LanguageSwitcher(),
+                ),
+              ),
             ),
-
             // Second row: back button, title, actions
-            Container(
-              height: kToolbarHeight, // standard toolbar height
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+            SizedBox(
+              height: kToolbarHeight,
               child: Row(
                 children: [
-                  if (cangoBack)
+                  if (canGoBack)
                     IconButton(
                       icon: const Icon(
                         Icons.arrow_back_ios,
                         color: Colors.green,
                       ),
-                      onPressed: () => onBackPress != null
-                          ? onBackPress!()
-                          : Navigator.of(context).pop(),
+                      onPressed:
+                          onBackPress ?? () => Navigator.of(context).pop(),
                     ),
                   Expanded(
                     child: Text(
@@ -75,5 +77,5 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(
     kToolbarHeight * 1.8 + (bottom?.preferredSize.height ?? 0),
-  ); // adjusted for taller first row
+  );
 }

@@ -31,13 +31,12 @@ class ProductPaginationNotifier
     try {
       state = state.copyWith(isLoading: true);
 
-      // Decide page number
-      final pageNumber = refresh ? 1 : state.currentPage;
+      final pageToFetch = refresh ? 1 : state.currentPage;
 
       // Fetch data from repository
       final List<ProductResponseModel> newItems = await repository.getProducts(
         perPage,
-        pageNumber,
+        pageToFetch,
       );
 
       // Merge with existing data if not refreshing
@@ -45,7 +44,7 @@ class ProductPaginationNotifier
 
       state = state.copyWith(
         data: updatedData,
-        currentPage: pageNumber + 1,
+        currentPage: pageToFetch + 1,
         isLoading: false,
         hasMoreData: newItems.isNotEmpty,
       );

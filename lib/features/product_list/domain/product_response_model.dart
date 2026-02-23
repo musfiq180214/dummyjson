@@ -9,6 +9,7 @@ class Product {
   int? stock;
   List<String>? tags;
   int? weight;
+  String? thumbnail;
 
   Product({
     this.id,
@@ -21,6 +22,7 @@ class Product {
     this.stock,
     this.tags,
     this.weight,
+    this.thumbnail,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -36,6 +38,7 @@ class Product {
       discountPercentage: (json['discountPercentage'] as num?)?.toDouble(),
       price: (json['price'] as num?)?.toDouble(),
       weight: (json['weight'] as num?)?.toInt(),
+      thumbnail: json['thumbnail'].toString(),
     );
   }
 
@@ -50,6 +53,7 @@ class Product {
     'stock': stock,
     'tags': tags,
     'weight': weight,
+    'thumbnail': thumbnail,
   };
 }
 
