@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:dummyjson/core/constants/urls.dart';
+import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/features/product_list/domain/product_response_model.dart';
 
-import '../../../core/utils/logger.dart';
-
 abstract class IProductRepository {
-  Future<List<ProductResponseModel>> getProducts();
+  Future<List<ProductResponseModel>> getProducts(int perPage, int pageNumber);
 }
 
 class ProductRepository implements IProductRepository {
@@ -14,23 +12,19 @@ class ProductRepository implements IProductRepository {
   ProductRepository(this._dio);
 
   @override
-  Future<List<ProductResponseModel>> getProducts() async {
-    try {
-      final response = await _dio.get(ApiEndpoints.products);
+  Future<List<ProductResponseModel>> getProducts(
+    int perPage,
+    int pageNumber,
+  ) async {
+    final skip = (pageNumber - 1) * perPage;
 
-      final List<dynamic> data = response.data['products'];
+    final response = await _dio.get(
+      "/products",
+      queryParameters: {"limit": perPage, "skip": skip},
+    );
 
-      return flightListFromJson(data);
-    } on DioException catch (dioError) {
-      final errorMessage =
-          dioError.response?.data['error'] ??
-          dioError.response?.data['message'] ??
-          "Failed to get products data!";
-      throw Exception(errorMessage);
-    } catch (e, st) {
-      AppLogger.e(e.toString());
-      AppLogger.e(st.toString());
-      throw Exception('Failed to load products');
-    }
+    final List<dynamic> data = response.data["products"];
+
+    return productListFromJson(data);
   }
 }

@@ -69,6 +69,6 @@ class ProductResponseModel {
   Map<String, dynamic> toJson() => {'id': id, 'product': product?.toJson()};
 }
 
-List<ProductResponseModel> flightListFromJson(List<dynamic> jsonList) {
+List<ProductResponseModel> productListFromJson(List<dynamic> jsonList) {
   return jsonList.map((json) => ProductResponseModel.fromJson(json)).toList();
 }
