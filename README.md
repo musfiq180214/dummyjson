@@ -1,16 +1,25 @@
-# dummyjson
+🟣 DummyJSON Flutter App
 
-A new Flutter project.
+A feature-rich Flutter app demonstrating a clean architecture for both Guest and Authorized users, built on top of public REST APIs.
 
-## Getting Started
+Key Features
 
-This project is a starting point for a Flutter application.
+🚀 Seamless Navigation – Smooth routing between screens for a flawless user experience.
 
-A few resources to get you started if this is your first Flutter project:
+🌐 REST API Integration – Powered by Dio for request, response, and error handling.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+🔒 Guest & Authorized UI – Dynamically adapts UI based on user authentication.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+🌍 Multi-Language Support – Built with localization in mind.
+
+🧩 Dependency Injection – Clean and scalable code with DI for maintainability.
+
+⚡ Feature-Based Architecture – Organized implementation for faster development and easier scaling.
+
+Why This App?
+
+Demonstrates best practices in Flutter.
+
+Handles real-world API workflows elegantly.
+
+Modular and extensible for future enhancements.
