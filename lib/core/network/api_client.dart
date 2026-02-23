@@ -25,7 +25,11 @@ class ApiClient {
     : _dio = Dio(
         BaseOptions(
           baseUrl: kDebugMode ? baseUrl : baseUrl,
+
           headers: token == null ? null : {'Authorization': 'Bearer $token'},
+
+          // making an unauthorized API hit to check fallback redirection to Landing
+          // headers: {'Authorization': null},
         ),
       ) {
     _dio.interceptors.add(
@@ -108,12 +112,12 @@ class ApiClient {
             // async work (no more container.read here)
             await storage.deleteAll();
 
-            // if (context.mounted) {
-            //   AppNavigator.navigatorKey.currentState!.pushNamedAndRemoveUntil(
-            //     RouteNames.landing,
-            //     (route) => false,
-            //   );
-            // }
+            if (context.mounted) {
+              AppNavigator.navigatorKey.currentState!.pushNamedAndRemoveUntil(
+                RouteNames.landing,
+                (route) => false,
+              );
+            }
           }
           return handler.next(e);
         },
