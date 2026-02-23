@@ -104,9 +104,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     }
 
     // 2️⃣ Storage permission (handle scoped storage on Android 10+)
-    final storageStatus = await Permission.storage.request();
-    if (storageStatus.isGranted) {
-      print("Storage granted");
+    if (Platform.isAndroid) {
+      if (await Permission.photos.isDenied) {
+        final status = await Permission.photos.request();
+        if (status.isGranted) {
+          print("Storage permission granted");
+        }
+      }
     }
 
     // 3️⃣ Notification permission
