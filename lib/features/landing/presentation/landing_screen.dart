@@ -150,7 +150,7 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
                     label: context.t.guest,
                   )
                 : BottomNavigationBarItem(
-                    icon: const Icon(Icons.search, color: Colors.black),
+                    icon: const Icon(Icons.list, color: Colors.black),
                     label: context.t.product_list,
                   ),
 
