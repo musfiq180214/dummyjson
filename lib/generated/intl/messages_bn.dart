@@ -36,8 +36,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "please_enter_username": MessageLookupByLibrary.simpleMessage(
       "অনুগ্রহ পূর্বক ইউজারনেম প্রবেশ করুন",
     ),
+    "product": MessageLookupByLibrary.simpleMessage("প্রোডাক্ট"),
+    "product_details": MessageLookupByLibrary.simpleMessage("প্রোডাক্ট বিবরণ"),
     "product_list": MessageLookupByLibrary.simpleMessage("প্রোডাক্ট লিস্ট"),
     "product_search": MessageLookupByLibrary.simpleMessage("প্রোডাক্ট খুঁজুন"),
+    "refresh": MessageLookupByLibrary.simpleMessage("রিফ্রেশ"),
     "register": MessageLookupByLibrary.simpleMessage("রেজিস্টার"),
     "search_product": MessageLookupByLibrary.simpleMessage(
       "প্রোডাক্ট খুঁজুন...",

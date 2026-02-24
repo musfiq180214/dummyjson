@@ -140,7 +140,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                           child: Row(
                             children: [
                               Text(
-                                "Refresh",
+                                context.t.refresh,
                                 style: TextStyle(color: Colors.white),
                               ),
                               Icon(Icons.refresh, color: Colors.white),
@@ -166,22 +166,36 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                           margin: EdgeInsets.only(
                             bottom: AppSpacing.marginS.bottom,
                           ),
-                          child: ProductCard(
-                            title: product?.title ?? "Unknown Product",
-                            description:
-                                product?.description ?? "No description",
-                            category: product?.category ?? "Unknown",
-                            price: product?.price != null
-                                ? "\$${product!.price}"
-                                : "N/A",
-                            rating: product?.rating != null
-                                ? product!.rating.toString()
-                                : "N/A",
-                            stock: product?.stock?.toString() ?? "N/A",
-                            thumbnail: product?.thumbnail ?? "",
+                          child: InkWell(
                             onTap: () {
-                              // Navigate to product details
+                              AppNavigator.navigatorKey.currentState!.pushNamed(
+                                RouteNames.productDetails,
+                                arguments: product,
+                              );
                             },
+                            child: ProductCard(
+                              title: product?.title ?? "Unknown Product",
+                              description:
+                                  product?.description ?? "No description",
+                              category: product?.category ?? "Unknown",
+                              price: product?.price != null
+                                  ? "\$${product!.price}"
+                                  : "N/A",
+                              rating: product?.rating != null
+                                  ? product!.rating.toString()
+                                  : "N/A",
+                              stock: product?.stock?.toString() ?? "N/A",
+                              thumbnail: product?.thumbnail ?? "",
+                              warrentyInformation:
+                                  product?.warrantyInformation ?? "N/A",
+                              onTap: () {
+                                AppNavigator.navigatorKey.currentState!
+                                    .pushNamed(
+                                      RouteNames.productDetails,
+                                      arguments: product,
+                                    );
+                              },
+                            ),
                           ),
                         );
                       }).toList(),

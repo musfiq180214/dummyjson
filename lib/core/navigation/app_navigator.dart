@@ -4,6 +4,8 @@ import 'package:dummyjson/features/auth/presentation/login.dart';
 import 'package:dummyjson/features/error_screen/no_internet.dart';
 import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dart';
 import 'package:dummyjson/features/landing/presentation/landing_screen.dart';
+import 'package:dummyjson/features/product_list/domain/product_response_model.dart';
+import 'package:dummyjson/features/product_list/presentation/product_detail_screen.dart';
 import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
 import 'package:dummyjson/splash.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ abstract class RouteNames {
   static const String landing = '/landing';
   static const String profile = '/profile';
   static const String guestHome = '/guest-home';
+  static const String productDetails = '/product-details';
 }
 
 abstract class AppNavigator {
@@ -72,6 +75,21 @@ abstract class AppNavigator {
       case RouteNames.guestHome:
         return MaterialPageRoute(
           builder: (_) => GuestHomeScreen(),
+          settings: settings,
+        );
+
+      case RouteNames.productDetails:
+        final product = settings.arguments as Product?;
+
+        if (product == null) {
+          return MaterialPageRoute(
+            builder: (_) =>
+                Scaffold(body: Center(child: Text("No product data passed!"))),
+          );
+        }
+
+        return MaterialPageRoute(
+          builder: (_) => ProductDetails(product: product),
           settings: settings,
         );
       default:

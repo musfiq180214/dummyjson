@@ -15,5 +15,8 @@
     "product_list": "প্রোডাক্ট লিস্ট",
     "product_search": "প্রোডাক্ট খুঁজুন",
     "search_product": "প্রোডাক্ট খুঁজুন...",
-    "type_to_search": "খুঁজতে টাইপ করুন"
+    "type_to_search": "খুঁজতে টাইপ করুন",
+    "product": "প্রোডাক্ট",
+    "product_details": "প্রোডাক্ট বিবরণ",
+    "refresh": "রিফ্রেশ"
 }

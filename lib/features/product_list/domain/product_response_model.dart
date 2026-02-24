@@ -10,6 +10,7 @@ class Product {
   List<String>? tags;
   int? weight;
   String? thumbnail;
+  String? warrantyInformation;
 
   Product({
     this.id,
@@ -23,6 +24,7 @@ class Product {
     this.tags,
     this.weight,
     this.thumbnail,
+    this.warrantyInformation,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -39,6 +41,7 @@ class Product {
       price: (json['price'] as num?)?.toDouble(),
       weight: (json['weight'] as num?)?.toInt(),
       thumbnail: json['thumbnail'].toString(),
+      warrantyInformation: json["warrantyInformation"].toString(),
     );
   }
 
@@ -54,6 +57,7 @@ class Product {
     'tags': tags,
     'weight': weight,
     'thumbnail': thumbnail,
+    "warrentyInformation": warrantyInformation,
   };
 }
 

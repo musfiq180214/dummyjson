@@ -32,8 +32,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "please_enter_username": MessageLookupByLibrary.simpleMessage(
       "Please enter your user name",
     ),
+    "product": MessageLookupByLibrary.simpleMessage("Product"),
+    "product_details": MessageLookupByLibrary.simpleMessage("Product Details"),
     "product_list": MessageLookupByLibrary.simpleMessage("Product List"),
     "product_search": MessageLookupByLibrary.simpleMessage("Product Search"),
+    "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
     "search_product": MessageLookupByLibrary.simpleMessage("Search Product..."),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),

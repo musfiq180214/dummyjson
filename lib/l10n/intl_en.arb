@@ -15,5 +15,8 @@
     "product_list": "Product List",
     "product_search": "Product Search",
     "search_product": "Search Product...",
-    "type_to_search": "Type to Search"
+    "type_to_search": "Type to Search",
+    "product": "Product",
+    "product_details": "Product Details",
+    "refresh": "Refresh"
 }
