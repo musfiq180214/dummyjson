@@ -14,7 +14,7 @@ import 'generated/l10n.dart'; // <- S class
 
 import 'core/navigation/app_navigator.dart';
 
-Future<void> amarShodaiDelivery() async {
+Future<void> dummyJSON() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
@@ -24,7 +24,7 @@ Future<void> amarShodaiDelivery() async {
   await Hive.openBox(HiveService.ordersBox);
   await Hive.openBox(HiveService.locationBox);
 
-  AppLogger.i('🚀 Amar Shoday Delivery App started');
+  AppLogger.i('🚀 Dummy JSON Delivery App started');
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -70,10 +70,10 @@ void main() async {
   FlavorConfig.instantiate(
     flavor: Flavor.staging,
     baseUrl: baseUrlDevelopment,
-    appTitle: "Amar Shodai Delivery (Staging)",
+    appTitle: "Dummy JSON (Staging)",
   );
 
-  await amarShodaiDelivery();
+  await dummyJSON();
 }
 
 
