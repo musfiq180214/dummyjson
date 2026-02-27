@@ -54,6 +54,10 @@ dependencies:
   intl_utils: ^2.8.14
   device_info_plus: ^12.3.0
   flutter_launcher_icons: ^0.14.4
+  go_router: ^17.1.0
+  hive_flutter: ^1.1.0
+  build_runner: ^2.11.1
+  easy_localization: ^3.0.8
 
 dev_dependencies:
   flutter_test:
@@ -71,24 +75,25 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  generate: true       # must be under flutter:
+  generate: true
   uses-material-design: true
 
   assets:
     - assets/svg/
     - assets/png/
     - assets/app_icon/
+    - assets/splash/
 
 flutter_icons:
   android: true
   ios: true
   image_path: "assets/app_icon/app_icon.png"
- 
 
-flutter_intl:
-  enabled: true
-  class_name: S  # Ensures generated class is named 'S'
-  main_locale: en
-  arb_dir: lib/l10n
-  output_dir: lib/generated
-  
+
+
+# ✅ Correct place for l10n
+l10n:
+  arb-dir: lib/l10n
+  template-arb-file: app_en.arb
+  output-localization-file: l10b.dart
+  output-class: S

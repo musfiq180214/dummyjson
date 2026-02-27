@@ -34,7 +34,7 @@ class _PassInputFieldState extends State<PassInputField> {
       obscureText: _obscureText,
       maxLength: widget.maxLength,
       decoration: InputDecoration(
-        hintText: widget.hintText ?? context.t.please_enter_pass,
+        hintText: widget.hintText,
         filled: true,
         fillColor: primaryColor.withOpacity(0.1),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),

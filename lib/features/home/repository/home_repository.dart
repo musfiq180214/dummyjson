@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dummyjson/core/constants/urls.dart';
 import 'package:dummyjson/features/home/domain/home_models.dart';
+import 'package:dummyjson/flavour_config.dart';
 
 abstract class IHomeRepo {
   Future<void> sendLocationUpdate(LocationUpdate update, String token);
@@ -13,7 +14,7 @@ class HomeRepo implements IHomeRepo {
 
   @override
   Future<void> sendLocationUpdate(LocationUpdate update, String token) async {
-    final url = baseUrl + ApiEndpoints.updateLocation;
+    final url = FlavorConfig.instance.baseUrl + ApiEndpoints.updateLocation;
     await dio.post(
       url,
       data: update.toJson(),

@@ -113,6 +113,18 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get home;
 
+  /// No description provided for @guest.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get guest;
+
+  /// No description provided for @guest_other.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Other'**
+  String get guest_other;
+
   /// No description provided for @guest_home.
   ///
   /// In en, this message translates to:
@@ -124,6 +136,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome Guest'**
   String get welcome_guest;
+
+  /// No description provided for @welcome_guest_another.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Guest to other screen'**
+  String get welcome_guest_another;
+
+  /// No description provided for @please_enter_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your user name'**
+  String get please_enter_username;
+
+  /// No description provided for @enter_username.
+  ///
+  /// In en, this message translates to:
+  /// **' Enter Username'**
+  String get enter_username;
+
+  /// No description provided for @please_enter_pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Password'**
+  String get please_enter_pass;
+
+  /// No description provided for @new_to_app.
+  ///
+  /// In en, this message translates to:
+  /// **'New to this app?'**
+  String get new_to_app;
+
+  /// No description provided for @product_list.
+  ///
+  /// In en, this message translates to:
+  /// **'Product List'**
+  String get product_list;
+
+  /// No description provided for @product_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Search'**
+  String get product_search;
+
+  /// No description provided for @search_product.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Product...'**
+  String get search_product;
+
+  /// No description provided for @type_to_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Type to Search'**
+  String get type_to_search;
+
+  /// No description provided for @product.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get product;
+
+  /// No description provided for @product_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Details'**
+  String get product_details;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

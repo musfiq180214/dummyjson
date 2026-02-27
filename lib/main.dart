@@ -1,73 +1,32 @@
-import 'dart:convert';
-
-import 'package:dummyjson/core/navigation/app_navigator.dart';
+import 'package:dummyjson/core/constants/urls.dart';
 import 'package:dummyjson/core/provider/language_provider.dart';
+import 'package:dummyjson/core/service/hive_service.dart';
 import 'package:dummyjson/core/theme/app_theme.dart';
 import 'package:dummyjson/core/theme/theme_provider.dart';
+import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/logger.dart';
-import 'package:dummyjson/features/auth/domain/login_response.dart';
-import 'package:dummyjson/features/auth/providers/login_provider.dart';
-import 'package:dummyjson/generated/l10n.dart';
+import 'package:dummyjson/flavour_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart'; // <- S class
 
-Future<void> main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterForegroundTask.initCommunicationPort();
-  FlutterForegroundTask.init(
-    androidNotificationOptions: AndroidNotificationOptions(
-      channelId: 'foreground_service',
-      channelName: 'Foreground Service Notification',
-      channelDescription:
-          'This notification appears when the foreground service is running.',
-      channelImportance: NotificationChannelImportance.HIGH,
-    ),
-    iosNotificationOptions: const IOSNotificationOptions(
-      showNotification: false,
-      playSound: false,
-    ),
-    foregroundTaskOptions: ForegroundTaskOptions(
-      eventAction: kDebugMode
-          ? ForegroundTaskEventAction.repeat(5000)
-          : ForegroundTaskEventAction.repeat(600000),
-      autoRunOnBoot: true,
-      autoRunOnMyPackageReplaced: true,
-      allowWakeLock: true,
-      allowWifiLock: true,
-    ),
-  );
-  final container = ProviderContainer();
-  await initializeToken(container);
+import 'core/navigation/app_navigator.dart';
 
-  runApp(UncontrolledProviderScope(container: container, child: const MyApp()));
-}
+Future<void> amarShodaiDelivery() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-Future<void> initializeToken(ProviderContainer container) async {
-  /*  await container
-      .read(secureStorageProvider)
-      .deleteAll(); */ // Only if needed and While on DEV mode and testing
-  final accessToken =
-      await container.read(secureStorageProvider).read(key: 'accessToken') ??
-      "";
+  await Hive.initFlutter();
 
-  AppLogger.i("Access Token Fetched from secureStorage: $accessToken");
+  await Hive.openBox(HiveService.settingsBox);
+  await Hive.openBox(HiveService.cartBox);
+  await Hive.openBox(HiveService.ordersBox);
+  await Hive.openBox(HiveService.locationBox);
 
-  if (accessToken.isNotEmpty) {
-    container.read(accessTokenProvider.notifier).state = accessToken;
-  }
+  AppLogger.i('🚀 Amar Shoday Delivery App started');
 
-  final refreshToken =
-      await container.read(secureStorageProvider).read(key: 'refreshToken') ??
-      "";
-
-  AppLogger.i("Refresh Token Fetched from secureStorage: $refreshToken");
-
-  if (refreshToken.isNotEmpty) {
-    container.read(refreshTokenProvider.notifier).state = refreshToken;
-  }
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
@@ -77,24 +36,44 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(languageProvider);
-    return MaterialApp(
+    final router = ref.watch(goRouterProvider);
+
+    return MaterialApp.router(
+      title: FlavorConfig.instance.appTitle,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      initialRoute: RouteNames.splash,
+      routerConfig: router,
       themeMode: themeMode,
-      onGenerateRoute: AppNavigator.generateRoutes,
-      scaffoldMessengerKey: AppNavigator.scaffoldMessengerKey,
-      navigatorKey: AppNavigator.navigatorKey,
+      debugShowCheckedModeBanner: false,
+      locale: locale,
       supportedLocales: S.delegate.supportedLocales,
-      localizationsDelegates: [
-        S.delegate,
+      localizationsDelegates: const [
+        S.delegate, // <- THIS IS THE KEY
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      locale: locale,
+      builder: (context, widget) {
+        Widget error = const Text('...rendering error...');
+        if (widget is Scaffold || widget is Navigator) {
+          error = Scaffold(body: Center(child: error));
+        }
+        ErrorWidget.builder = (errorDetails) => error;
+        if (widget != null) return widget;
+        throw StateError('widget is null');
+      },
     );
   }
+}
+
+void main() async {
+  FlavorConfig.instantiate(
+    flavor: Flavor.staging,
+    baseUrl: baseUrlDevelopment,
+    appTitle: "Amar Shodai Delivery (Staging)",
+  );
+
+  await amarShodaiDelivery();
 }
 
 

@@ -91,10 +91,11 @@ class LocationTaskHandler extends TaskHandler {
         return;
       }
 
-      //TODO :  PRODUCTION CHECK
-      final String url = kDebugMode
-          ? baseUrl
-          : "${baseUrl}ApiEndpoints.updateLocation";
+      final String baseUrl = kDebugMode
+          ? baseUrlDevelopment
+          : baseUrlProduction;
+
+      final String url = "$baseUrl${ApiEndpoints.updateLocation}";
 
       final Map<String, dynamic> data = {
         "latitude": position.latitude,

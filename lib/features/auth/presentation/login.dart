@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dummyjson/core/navigation/app_navigator.dart';
+import 'package:dummyjson/core/navigation/route_names.dart';
 import 'package:dummyjson/core/theme/colors.dart';
 import 'package:dummyjson/core/utils/custom_dialog.dart';
 import 'package:dummyjson/core/utils/enums.dart';
@@ -56,23 +57,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(context.t.sign_in, style: AppTextStyles.headingL),
+              Text("Sign In", style: AppTextStyles.headingL),
               AppSpacing.verticalSpaceXXL,
 
               // Phone Input
-              Text(context.t.please_enter_username),
+              Text("Please enter your username"),
               AppSpacing.verticalSpaceS,
               UserNameInputField(
                 controller: _usernameController,
-                hintText: context.t.enter_username,
+                hintText: "Enter username",
               ),
 
               // PIN Input
               AppSpacing.verticalSpaceL,
-              Text(context.t.please_enter_pass),
+              Text("Please enter your password"),
               AppSpacing.verticalSpaceS,
               //PinputField(pinController: _pinController, length: 4),
-              PassInputField(controller: _passController),
+              PassInputField(
+                controller: _passController,
+                hintText: "Enter password",
+              ),
               AppSpacing.verticalSpaceXXL,
 
               // Login Button
@@ -89,19 +93,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         );
 
                         final state = ref.watch(loginProvider);
-                        // final user = ref.watch(userProvider);
+
                         state.whenOrNull(
-                          data: (_) async {
-                            log(ref.read(accessTokenProvider).toString());
-                            log(ref.read(refreshTokenProvider).toString());
-                            await ref
-                                .read(loginProvider.notifier)
-                                .login(username: username, pass: pass);
-                            AppNavigator.navigatorKey.currentState!
-                                .pushNamedAndRemoveUntil(
-                                  RouteNames.landing,
-                                  (route) => false,
-                                );
+                          data: (_) {
+                            // Use GoRouter navigation instead of Navigator
+                            AppNavigator.goTo(RouteNames.landing);
                           },
                           error: (err, _) {
                             showCustomSnackBar(
@@ -114,7 +110,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       },
                       backgroundColor: green,
                       textColor: Colors.white,
-                      text: context.t.sign_in,
+                      text: "Sign In",
                     ),
 
               AppSpacing.verticalSpaceXXL,
@@ -129,7 +125,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     RichText(
                       text: TextSpan(
-                        text: context.t.new_to_app,
+                        text: "New to App",
                         style: AppTextStyles.bodyS.copyWith(
                           color: Colors.black,
                         ),
@@ -151,7 +147,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 );
                               },
                               child: Text(
-                                context.t.register,
+                                "Register",
                                 style: AppTextStyles.bodyS.copyWith(
                                   color: green,
                                 ),

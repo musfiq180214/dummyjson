@@ -1,5 +1,6 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dummyjson/core/navigation/app_navigator.dart';
+import 'package:dummyjson/core/navigation/route_names.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class GuestHomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: GlobalAppBar(
-        title: context.t.guest_home,
+        title: "context.t.",
         canGoBack: false,
         actions: [
           PopupMenuButton<String>(

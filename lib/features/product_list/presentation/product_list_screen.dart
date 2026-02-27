@@ -1,4 +1,5 @@
 import 'package:dummyjson/core/navigation/app_navigator.dart';
+import 'package:dummyjson/core/navigation/route_names.dart';
 import 'package:dummyjson/core/theme/colors.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/utils/loader.dart';
@@ -168,9 +169,9 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              AppNavigator.navigatorKey.currentState!.pushNamed(
+                              AppNavigator.pushTo(
                                 RouteNames.productDetails,
-                                arguments: product,
+                                extra: product,
                               );
                             },
                             child: ProductCard(
@@ -189,11 +190,11 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                               warrentyInformation:
                                   product?.warrantyInformation ?? "N/A",
                               onTap: () {
-                                AppNavigator.navigatorKey.currentState!
-                                    .pushNamed(
-                                      RouteNames.productDetails,
-                                      arguments: product,
-                                    );
+                                AppNavigator.pushTo(
+                                  RouteNames.productDetails,
+                                  extra:
+                                      product, // pass the Product object via 'extra'
+                                );
                               },
                             ),
                           ),
