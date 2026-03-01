@@ -5,6 +5,7 @@ import 'package:dummyjson/core/theme/app_theme.dart';
 import 'package:dummyjson/core/theme/theme_provider.dart';
 import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/logger.dart';
+import 'package:dummyjson/core/utils/user_utils.dart';
 import 'package:dummyjson/flavour_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,33 +16,14 @@ import 'generated/l10n.dart'; // <- S class
 
 import 'core/navigation/app_navigator.dart';
 
-Future<void> dummyJSON() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  await Hive.initFlutter();
-
-  await Hive.openBox(HiveService.settingsBox);
-  await Hive.openBox(HiveService.cartBox);
-  await Hive.openBox(HiveService.ordersBox);
-  await Hive.openBox(HiveService.locationBox);
-
-  AppLogger.i('🚀 Dummy JSON Delivery App started');
-
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('bn')],
-      path: 'assets/lang',
-      fallbackLocale: const Locale('en'),
-      child: const ProviderScope(child: MyApp()),
-    ),
-  );
-}
-
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // ✅ Update user type at the earliest point
+    // updateUserTypeOnStart(ref);
+
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(languageProvider);
     final router = ref.watch(goRouterProvider);
@@ -56,7 +38,7 @@ class MyApp extends ConsumerWidget {
       locale: locale,
       supportedLocales: S.delegate.supportedLocales,
       localizationsDelegates: const [
-        S.delegate, // <- THIS IS THE KEY
+        S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -75,13 +57,31 @@ class MyApp extends ConsumerWidget {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  await Hive.initFlutter();
+
+  await Hive.openBox(HiveService.settingsBox);
+  await Hive.openBox(HiveService.cartBox);
+  await Hive.openBox(HiveService.ordersBox);
+  await Hive.openBox(HiveService.locationBox);
+
   FlavorConfig.instantiate(
     flavor: Flavor.staging,
     baseUrl: baseUrlDevelopment,
     appTitle: "Dummy JSON (Staging)",
   );
 
-  await dummyJSON();
+  runApp(
+    ProviderScope(
+      child: EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('bn')],
+        path: 'assets/lang',
+        fallbackLocale: const Locale('en'),
+        child: const MyApp(),
+      ),
+    ),
+  );
 }
 
 

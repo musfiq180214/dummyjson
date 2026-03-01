@@ -2,7 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dummyjson/core/provider/bottom_nav_bar_provider.dart';
+import 'package:dummyjson/core/provider/user_type_provider.dart';
 import 'package:dummyjson/core/service/app_update_service.dart';
+import 'package:dummyjson/core/service/hive_service.dart';
 import 'package:dummyjson/core/service/internet_service.dart';
 import 'package:dummyjson/core/service/location_tracking_service.dart';
 import 'package:dummyjson/core/service/permission_service.dart';
@@ -92,7 +94,10 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var userType = ref.watch(userTypeProvider);
+    // final userType = ref.watch(userTypeProvider);
+    final userType = ref.read(userTypeProvider);
+
+    AppLogger.i("LANDING USER TYPE: $userType");
 
     var index = ref.watch(bottomNavIndexProvider);
 
@@ -154,7 +159,7 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
                     label: context.t.product_list,
                   ),
 
-            if (userType == UserType.loggedIN) ...[
+            if (userType == UserType.loggedIn) ...[
               BottomNavigationBarItem(
                 icon: Icon(Icons.search, color: Colors.black),
                 label: context.t.product_search,

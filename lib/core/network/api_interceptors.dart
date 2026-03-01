@@ -4,8 +4,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/navigation/route_names.dart';
+import 'package:dummyjson/core/provider/user_type_provider.dart';
 import 'package:dummyjson/core/service/hive_service.dart';
 import 'package:dummyjson/core/service/token_service.dart';
+import 'package:dummyjson/core/utils/enums.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,8 +34,8 @@ class ApiInterceptor extends Interceptor {
       );
     }
 
-    final tokenService = ref.read(tokenServiceProvider);
-    final token = await tokenService.getToken();
+    final accessTokenService = ref.read(accessTokenServiceProvider);
+    final token = await accessTokenService.getToken();
     if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
@@ -84,9 +86,12 @@ class ApiInterceptor extends Interceptor {
     }
 
     if (err.response?.statusCode == 401) {
-      final tokenService = ref.read(tokenServiceProvider);
+      final accessTokenService = ref.read(accessTokenServiceProvider);
+      final refreshTokenService = ref.read(refreshTokenServiceProvider);
 
-      await tokenService.deleteToken();
+      await accessTokenService.deleteToken();
+      await refreshTokenService.deleteToken();
+      ref.read(userTypeProvider.notifier).state = UserType.guest;
 
       AppNavigator.goTo(RouteNames.login);
     }

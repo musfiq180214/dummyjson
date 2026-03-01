@@ -1,10 +1,14 @@
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/navigation/route_names.dart';
+import 'package:dummyjson/core/provider/secureStorageProvider.dart';
+import 'package:dummyjson/core/service/token_service.dart';
 import 'package:dummyjson/core/theme/colors.dart';
+import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:dummyjson/features/auth/providers/login_provider.dart';
+
 import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -95,14 +99,14 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Future<void> _handleLogout(BuildContext context, WidgetRef ref) async {
-    await ref.read(secureStorageProvider).deleteAll();
-    AppLogger.i("Logging Out");
+    final accessTokenService = ref.read(accessTokenServiceProvider);
+    final refreshTokenService = ref.read(refreshTokenServiceProvider);
 
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      RouteNames.login,
-      (route) => false,
-    );
+    await accessTokenService.deleteToken();
+    await refreshTokenService.deleteToken();
+    // ref.read(userTypeProvider.notifier).state = UserType.guest;
+    await ref.read(secureStorageProvider).deleteAll();
+    AppNavigator.goTo(RouteNames.login);
   }
 
   void _handleOthers() {

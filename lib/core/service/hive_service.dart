@@ -1,3 +1,6 @@
+import 'package:dummyjson/core/provider/user_type_provider.dart';
+import 'package:dummyjson/core/utils/enums.dart';
+import 'package:dummyjson/core/utils/logger.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,6 +23,21 @@ class HiveService {
   static const String keySelectedAreaBn = 'selected_area_bn';
   static const String keySelectedAreaId = 'selected_area_id';
   static const String keyIsOnboardingComplete = 'is_onboarding_complete';
+
+  static const String keyUserType = 'user_type';
+
+  Future<void> saveUserType(UserType userType) async {
+    await saveData(settingsBox, keyUserType, userType.name);
+  }
+
+  UserType getUserType() {
+    final type = getData<String>(settingsBox, keyUserType);
+    if (type == null) return UserType.guest;
+    return UserType.values.firstWhere(
+      (e) => e.name == type,
+      orElse: () => UserType.guest,
+    );
+  }
 
   /// Save data to a specific box
   Future<void> saveData<T>(String boxName, String key, T value) async {
@@ -125,5 +143,20 @@ class HiveService {
     final data = getData(ordersBox, 'recent_orders');
     if (data == null) return null;
     return (data as List).map((e) => Map<String, dynamic>.from(e)).toList();
+  }
+
+  // Add this helper somewhere accessible, e.g., in core/service/hive_service.dart
+  Future<void> updateUserTypeOnStart(WidgetRef ref) async {
+    final settingsBox = Hive.box(HiveService.settingsBox);
+    final String? token = settingsBox.get('token');
+
+    // Update your userTypeProvider in Riverpod
+    if (token != null) {
+      ref.read(userTypeProvider.notifier).state = UserType.loggedIn;
+    } else {
+      ref.read(userTypeProvider.notifier).state = UserType.guest;
+    }
+
+    AppLogger.i('UserType updated: ${ref.read(userTypeProvider)}');
   }
 }

@@ -1,4 +1,4 @@
-enum UserType { guest, loggedIN }
+enum UserType { guest, loggedIn }
 
 enum MessageType { error, success, warning, info }
 

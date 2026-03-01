@@ -212,10 +212,10 @@ final List<AppRoute> appRoutes = [
     path: RouteNames.login,
     builder: (context, state) => const LoginScreen(),
   ),
-  AppRoute(
-    path: RouteNames.guestHome,
-    builder: (context, state) => const GuestHomeScreen(),
-  ),
+  // AppRoute(
+  //   path: RouteNames.guestHome,
+  //   builder: (context, state) => const GuestHomeScreen(),
+  // ),
   AppRoute(
     path: RouteNames.productDetails,
     builder: (context, state) {

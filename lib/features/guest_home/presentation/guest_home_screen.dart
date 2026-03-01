@@ -38,6 +38,6 @@ class GuestHomeScreen extends ConsumerWidget {
   }
 
   Future<void> _handleLogin(BuildContext context, WidgetRef ref) async {
-    Navigator.pushNamed(context, RouteNames.login, arguments: true);
+    AppNavigator.goTo(RouteNames.login);
   }
 }

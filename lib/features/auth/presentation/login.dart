@@ -2,11 +2,16 @@ import 'dart:developer';
 
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/navigation/route_names.dart';
+import 'package:dummyjson/core/provider/secureStorageProvider.dart';
+import 'package:dummyjson/core/provider/user_type_provider.dart';
+import 'package:dummyjson/core/service/hive_service.dart';
+import 'package:dummyjson/core/service/token_service.dart';
 import 'package:dummyjson/core/theme/colors.dart';
 import 'package:dummyjson/core/utils/custom_dialog.dart';
 import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/utils/loader.dart';
+import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/core/utils/sizes.dart';
 import 'package:dummyjson/core/widgets/button.dart';
 import 'package:dummyjson/core/widgets/global_appbar.dart';
@@ -95,9 +100,38 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         final state = ref.watch(loginProvider);
 
                         state.whenOrNull(
-                          data: (_) {
+                          data: (_) async {
                             // Use GoRouter navigation instead of Navigator
-                            AppNavigator.goTo(RouteNames.landing);
+
+                            final accessToken = await ref
+                                .read(accessTokenServiceProvider)
+                                .getToken();
+                            final refreshToken = await ref
+                                .read(refreshTokenServiceProvider)
+                                .getToken();
+
+                            final onboardingComplete = ref
+                                .read(hiveServiceProvider)
+                                .isOnboardingComplete();
+
+                            AppLogger.i("ACCESS TOKEN: $accessToken");
+                            AppLogger.i("REFRESH TOKEN: $refreshToken");
+                            AppLogger.i("ONBOARDING: $onboardingComplete");
+                            // Set user type based on tokens
+                            final userType =
+                                (accessToken != null &&
+                                    accessToken.isNotEmpty &&
+                                    refreshToken != null &&
+                                    refreshToken.isNotEmpty)
+                                ? UserType.loggedIn
+                                : UserType.guest;
+
+                            ref.read(userTypeProvider.notifier).state =
+                                userType;
+
+                            if (userType == UserType.loggedIn) {
+                              AppNavigator.goTo(RouteNames.landing);
+                            }
                           },
                           error: (err, _) {
                             showCustomSnackBar(
@@ -170,11 +204,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteNames.guestHome,
-                          arguments: true,
-                        );
+                        AppNavigator.goTo(RouteNames.landing);
                       },
                       child: Text(
                         "Continue As Guest",

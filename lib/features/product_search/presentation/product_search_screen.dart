@@ -1,5 +1,6 @@
 import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/navigation/route_names.dart';
+import 'package:dummyjson/core/provider/secureStorageProvider.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/core/utils/sizes.dart';
@@ -163,7 +164,6 @@ class _ProductSearchScreenState extends ConsumerState<ProductSearchScreen> {
     await ref.read(secureStorageProvider).deleteAll();
     AppLogger.i("Logging Out");
 
-    // Example: Navigate to login screen
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    AppNavigator.goTo(RouteNames.login);
   }
 }
