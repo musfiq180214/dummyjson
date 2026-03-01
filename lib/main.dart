@@ -16,6 +16,32 @@ import 'generated/l10n.dart'; // <- S class
 
 import 'core/navigation/app_navigator.dart';
 
+Future<void> dummJSON() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  await Hive.initFlutter();
+
+  await Hive.openBox(HiveService.settingsBox);
+  await Hive.openBox(HiveService.cartBox);
+  await Hive.openBox(HiveService.ordersBox);
+  await Hive.openBox(HiveService.locationBox);
+
+  FlavorConfig.instantiate(
+    flavor: Flavor.staging,
+    baseUrl: baseUrlDevelopment,
+    appTitle: "Dummy JSON (Staging)",
+  );
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('bn')],
+      path: 'assets/lang',
+      fallbackLocale: const Locale('en'),
+      child: ProviderScope(child: const MyApp()),
+    ),
+  );
+}
+
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
@@ -57,32 +83,15 @@ class MyApp extends ConsumerWidget {
 }
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  await Hive.initFlutter();
-
-  await Hive.openBox(HiveService.settingsBox);
-  await Hive.openBox(HiveService.cartBox);
-  await Hive.openBox(HiveService.ordersBox);
-  await Hive.openBox(HiveService.locationBox);
-
   FlavorConfig.instantiate(
     flavor: Flavor.staging,
     baseUrl: baseUrlDevelopment,
     appTitle: "Dummy JSON (Staging)",
   );
 
-  runApp(
-    ProviderScope(
-      child: EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('bn')],
-        path: 'assets/lang',
-        fallbackLocale: const Locale('en'),
-        child: const MyApp(),
-      ),
-    ),
-  );
+  await dummJSON();
 }
+
 
 
 /*
