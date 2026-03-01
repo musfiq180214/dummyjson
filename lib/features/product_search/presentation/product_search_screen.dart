@@ -2,8 +2,10 @@ import 'package:dummyjson/core/navigation/app_navigator.dart';
 import 'package:dummyjson/core/navigation/route_names.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/utils/logger.dart';
+import 'package:dummyjson/core/utils/sizes.dart';
 import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:dummyjson/features/auth/providers/login_provider.dart';
+import 'package:dummyjson/features/product_list/widget/product_card.dart';
 import 'package:dummyjson/features/product_search/providers/product_search_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -111,16 +113,39 @@ class _ProductSearchScreenState extends ConsumerState<ProductSearchScreen> {
                         itemBuilder: (context, index) {
                           final product = products[index];
 
-                          return Card(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
+                          return Container(
+                            margin: EdgeInsets.only(
+                              bottom: AppSpacing.marginS.bottom,
                             ),
-                            child: ListTile(
-                              title: Text(product.title ?? ''),
-                              subtitle: Text(product.description ?? ''),
-                              trailing: Text(
-                                "\$${product.price?.toStringAsFixed(2) ?? ''}",
+                            child: InkWell(
+                              onTap: () {
+                                AppNavigator.pushTo(
+                                  RouteNames.productDetails,
+                                  extra: product,
+                                );
+                              },
+                              child: ProductCard(
+                                title: product?.title ?? "Unknown Product",
+                                description:
+                                    product?.description ?? "No description",
+                                category: product?.category ?? "Unknown",
+                                price: product?.price != null
+                                    ? "\$${product!.price}"
+                                    : "N/A",
+                                rating: product?.rating != null
+                                    ? product!.rating.toString()
+                                    : "N/A",
+                                stock: product?.stock?.toString() ?? "N/A",
+                                thumbnail: product?.thumbnail ?? "",
+                                warrentyInformation:
+                                    product?.warrantyInformation ?? "N/A",
+                                onTap: () {
+                                  AppNavigator.pushTo(
+                                    RouteNames.productDetails,
+                                    extra:
+                                        product, // pass the Product object via 'extra'
+                                  );
+                                },
                               ),
                             ),
                           );

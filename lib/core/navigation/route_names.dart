@@ -1,6 +1,4 @@
 abstract class RouteNames {
-  RouteNames._();
-
   static const String login = '/login';
   static const String noInternet = '/no-internet';
   static const String splash = '/splash';

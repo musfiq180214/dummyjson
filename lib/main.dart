@@ -6,6 +6,7 @@ import 'package:dummyjson/core/theme/theme_provider.dart';
 import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/flavour_config.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,7 +17,7 @@ import 'core/navigation/app_navigator.dart';
 
 Future<void> dummyJSON() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await EasyLocalization.ensureInitialized();
   await Hive.initFlutter();
 
   await Hive.openBox(HiveService.settingsBox);
@@ -26,7 +27,14 @@ Future<void> dummyJSON() async {
 
   AppLogger.i('🚀 Dummy JSON Delivery App started');
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('bn')],
+      path: 'assets/lang',
+      fallbackLocale: const Locale('en'),
+      child: const ProviderScope(child: MyApp()),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {

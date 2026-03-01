@@ -2,6 +2,17 @@ import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/features/landing/providers/landing_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+final appUpdateServiceProvider =
+    StateNotifierProvider<AppUpdateNotifier, AppUpdateService>((ref) {
+      return AppUpdateNotifier(ref);
+    });
+
+final versionProvider = FutureProvider<String?>((ref) async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.buildNumber;
+});
 
 class AppUpdateService {
   final bool updateAvailable;
