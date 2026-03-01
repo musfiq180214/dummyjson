@@ -27,17 +27,21 @@ class ProfileScreen extends ConsumerWidget {
               if (value == 'logout') {
                 await _handleLogout(context, ref);
               } else if (value == 'home') {
-                AppNavigator.navigatorKey.currentState!.pushNamed(
-                  RouteNames.landing,
-                );
-              } else if (value == 'others') {
-                AppLogger.i("Others clicked");
+                AppNavigator.pushTo(RouteNames.landing);
+              } else if (value == 'product_list') {
+                AppNavigator.pushTo(RouteNames.productList);
+              } else if (value == 'product_search') {
+                AppNavigator.pushTo(RouteNames.productSearch);
               }
             },
             itemBuilder: (context) => const [
               PopupMenuItem(value: 'logout', child: Text('Logout')),
               PopupMenuItem(value: 'home', child: Text('Home')),
-              PopupMenuItem(value: 'others', child: Text('Others')),
+              PopupMenuItem(value: 'product_list', child: Text('Product List')),
+              PopupMenuItem(
+                value: 'product_search',
+                child: Text('Product Search'),
+              ),
             ],
           ),
         ],

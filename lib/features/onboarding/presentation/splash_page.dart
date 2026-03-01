@@ -70,8 +70,8 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/splash/amar_shoday_splash.jpeg'),
-            fit: BoxFit.cover, // makes the image cover the whole screen
+            image: AssetImage('assets/splash/dummy_json_splash.png'),
+            fit: BoxFit.fill,
           ),
         ),
       ),

@@ -158,12 +158,16 @@
 // }
 
 import 'package:dummyjson/core/navigation/route_names.dart';
+import 'package:dummyjson/features/auth/domain/login_response.dart';
 import 'package:dummyjson/features/auth/presentation/login.dart';
 import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dart';
+import 'package:dummyjson/features/home/domain/home_models.dart';
 import 'package:dummyjson/features/landing/presentation/landing_screen.dart';
 import 'package:dummyjson/features/onboarding/presentation/splash_page.dart';
 import 'package:dummyjson/features/product_list/domain/product_response_model.dart';
 import 'package:dummyjson/features/product_list/presentation/product_detail_screen.dart';
+import 'package:dummyjson/features/product_list/presentation/product_list_screen.dart';
+import 'package:dummyjson/features/product_search/presentation/product_search_screen.dart';
 import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -212,10 +216,22 @@ final List<AppRoute> appRoutes = [
     path: RouteNames.login,
     builder: (context, state) => const LoginScreen(),
   ),
-  // AppRoute(
-  //   path: RouteNames.guestHome,
-  //   builder: (context, state) => const GuestHomeScreen(),
-  // ),
+  AppRoute(
+    path: RouteNames.profile,
+    builder: (context, state) {
+      final user = state.extra as LoginResponse?;
+      if (user == null) {
+        return const Scaffold(body: Center(child: Text("No user data passed")));
+      }
+      return ProfileScreen(user: user);
+    },
+  ),
+  AppRoute(
+    path: RouteNames.productList,
+    builder: (context, state) {
+      return ProductListScreen();
+    },
+  ),
   AppRoute(
     path: RouteNames.productDetails,
     builder: (context, state) {
@@ -228,6 +244,13 @@ final List<AppRoute> appRoutes = [
       }
 
       return ProductDetails(product: product);
+    },
+  ),
+
+  AppRoute(
+    path: RouteNames.productSearch,
+    builder: (context, state) {
+      return const ProductSearchScreen();
     },
   ),
 ];

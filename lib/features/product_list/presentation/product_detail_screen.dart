@@ -131,6 +131,24 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
 
               AppSpacing.verticalSpaceXL,
+
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    shadowColor: Colors.amber,
+                    backgroundColor: Colors.green,
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    "Add to Cart",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
