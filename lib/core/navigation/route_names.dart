@@ -7,4 +7,7 @@ abstract class RouteNames {
   static const String productList = '/product-list';
   static const String profile = '/profile';
   static const String productSearch = '/product-search';
+  static const String multiScreenOrderPlacement =
+      '/multi-screen-order-placement';
+  static const String orderSuccess = '/order-success';
 }

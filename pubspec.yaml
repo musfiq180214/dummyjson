@@ -59,6 +59,8 @@ dependencies:
   build_runner: ^2.11.1
   easy_localization: ^3.0.8
   package_info_plus: ^9.0.0
+  image_picker: ^1.2.1
+  file_picker: ^10.3.10
 
 dev_dependencies:
   flutter_test:

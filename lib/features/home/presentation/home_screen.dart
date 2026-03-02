@@ -56,6 +56,8 @@ class HomeScreen extends ConsumerWidget {
                 );
               } else if (value == 'product_list') {
                 AppNavigator.pushTo(RouteNames.productList);
+              } else if (value == 'multi_screen_order_placement') {
+                AppNavigator.pushTo(RouteNames.multiScreenOrderPlacement);
               } else if (value == 'others') {
                 AppLogger.i("Others clicked");
               }
@@ -64,6 +66,10 @@ class HomeScreen extends ConsumerWidget {
               PopupMenuItem(value: 'logout', child: Text('Logout')),
               PopupMenuItem(value: 'profile', child: Text('Profile')),
               PopupMenuItem(value: 'product_list', child: Text('Product List')),
+              PopupMenuItem(
+                value: 'multi_screen_order_placement',
+                child: Text('Multi Screen Order Placement'),
+              ),
               PopupMenuItem(value: 'others', child: Text('Others')),
             ],
           ),
