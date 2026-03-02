@@ -102,8 +102,24 @@ class ApiInterceptor extends Interceptor {
 String _prettifyJson(dynamic data) {
   try {
     final jsonData = data is String ? jsonDecode(data) : data;
-    return JsonEncoder.withIndent(' ').convert(jsonData);
+
+    final processedData = _truncateLargeLists(jsonData);
+
+    return const JsonEncoder.withIndent('  ').convert(processedData);
   } catch (_) {
     return data.toString();
+  }
+}
+
+dynamic _truncateLargeLists(dynamic data) {
+  if (data is List) {
+    if (data.length > 5) {
+      return [...data.take(5), '... (${data.length - 5} more items)'];
+    }
+    return data;
+  } else if (data is Map) {
+    return data.map((key, value) => MapEntry(key, _truncateLargeLists(value)));
+  } else {
+    return data;
   }
 }
