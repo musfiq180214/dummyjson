@@ -81,24 +81,3 @@ class MyApp extends ConsumerWidget {
     );
   }
 }
-
-void main() async {
-  FlavorConfig.instantiate(
-    flavor: Flavor.staging,
-    baseUrl: baseUrlDevelopment,
-    appTitle: "Dummy JSON (Staging)",
-  );
-
-  await dummJSON();
-}
-
-
-
-/*
- valid user: {username: emilys, password: emilyspass}
- to generate translation: change intl_bn.arb and intl_en.arb and run: dart run intl_utils:generate
-  to generate app icon and replace default app icon: 
-  update directory of app icon in pubspec.yaml
-  In Terminal:
-  flutter pub run flutter_launcher_icons:main
-*/

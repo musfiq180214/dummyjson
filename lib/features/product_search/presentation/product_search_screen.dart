@@ -42,10 +42,7 @@ class _ProductSearchScreenState extends ConsumerState<ProductSearchScreen> {
                 loginState.when(
                   data: (user) {
                     if (user != null) {
-                      AppNavigator.navigatorKey.currentState!.pushNamed(
-                        RouteNames.profile,
-                        arguments: user,
-                      );
+                      AppNavigator.pushTo(RouteNames.profile, extra: user);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -67,11 +64,14 @@ class _ProductSearchScreenState extends ConsumerState<ProductSearchScreen> {
                 );
               } else if (value == 'others') {
                 AppLogger.i("Others clicked");
+              } else if (value == 'product_list') {
+                AppNavigator.pushTo(RouteNames.productList);
               }
             },
             itemBuilder: (context) => const [
               PopupMenuItem(value: 'logout', child: Text('Logout')),
               PopupMenuItem(value: 'profile', child: Text('Profile')),
+              PopupMenuItem(value: 'product_list', child: Text('Product List')),
               PopupMenuItem(value: 'others', child: Text('Others')),
             ],
           ),
