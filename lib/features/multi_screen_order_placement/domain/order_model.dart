@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
-class PreRegistrationForm {
+class OrderForm {
   // Step 0 / General
   String registrationType; // self / others
   int? nationalityId;
@@ -80,7 +80,7 @@ class PreRegistrationForm {
   // SERVER PHOTO URL
   String? serverProfilePhotoUrl;
 
-  PreRegistrationForm({
+  OrderForm({
     this.registrationType = 'others',
     this.medium = 'Government',
     this.nationalityId,
@@ -145,7 +145,7 @@ class PreRegistrationForm {
     this.serverProfilePhotoUrl,
   });
 
-  PreRegistrationForm copyWith({
+  OrderForm copyWith({
     String? registrationType,
     int? nationalityId,
     String? nationalityName,
@@ -221,7 +221,7 @@ class PreRegistrationForm {
     XFile? localProfilePhoto,
     String? serverProfilePhotoUrl,
   }) {
-    return PreRegistrationForm(
+    return OrderForm(
       registrationType: registrationType ?? this.registrationType,
       medium: medium ?? this.medium,
       nationalityId: resetNationalityId

@@ -18,21 +18,20 @@ import 'package:dummyjson/features/multi_screen_order_placement/widgets/step_ind
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MultiStepPreRegistrationScreen extends ConsumerStatefulWidget {
-  const MultiStepPreRegistrationScreen({super.key});
+class MultiStepOrderScreen extends ConsumerStatefulWidget {
+  const MultiStepOrderScreen({super.key});
 
   @override
-  ConsumerState<MultiStepPreRegistrationScreen> createState() =>
-      _MultiStepRegistrationScreenState();
+  ConsumerState<MultiStepOrderScreen> createState() =>
+      _MultiStepOrderScreenState();
 }
 
-class _MultiStepRegistrationScreenState
-    extends ConsumerState<MultiStepPreRegistrationScreen> {
+class _MultiStepOrderScreenState extends ConsumerState<MultiStepOrderScreen> {
   final PageController _pageController = PageController();
   int _currentStep = 0;
 
   Future<void> _nextStep() async {
-    final notifier = ref.read(preRegistrationFormProvider.notifier);
+    final notifier = ref.read(orderFormProvider.notifier);
     // Step validators in order
     final validators = [
       () => notifier.validateStep1(context),
@@ -58,7 +57,7 @@ class _MultiStepRegistrationScreenState
       }
     } else {
       // Final submission
-      final form = ref.watch(preRegistrationFormProvider);
+      final form = ref.watch(orderFormProvider);
       final regNotifier = ref.read(preRegProvider.notifier);
       regNotifier.preRegistration(form: form, edit: false, applicationID: "");
     }
@@ -81,7 +80,7 @@ class _MultiStepRegistrationScreenState
         title: "Order Placement",
         canGoBack: true,
         onBackPress: () {
-          ref.read(preRegistrationFormProvider.notifier).reset();
+          ref.read(orderFormProvider.notifier).reset();
           AppNavigator.navigatorKey.currentState!.pop();
         },
       ),
@@ -140,7 +139,7 @@ class _MultiStepRegistrationScreenState
                         message: "Pre-Registration successful",
                         type: MessageType.success,
                       );
-                      ref.invalidate(preRegistrationFormProvider);
+                      ref.invalidate(orderFormProvider);
                       AppNavigator.navigatorKey.currentState!
                           .pushNamedAndRemoveUntil(
                             RouteNames.orderSuccess,

@@ -51,7 +51,13 @@ class ApiInterceptor extends Interceptor {
         ..writeln('🔹 REQUEST → ${options.method.toUpperCase()} ${options.uri}')
         ..writeln('Headers: ${jsonEncode(options.headers)}');
       if (options.data != null) {
-        logBuffer.writeln('Body: ${_prettifyJson(options.data)}');
+        if (options.data is FormData) {
+          logBuffer.writeln(
+            'Body (FormData):\n${_prettyFormData(options.data)}',
+          );
+        } else {
+          logBuffer.writeln('Body: ${_prettifyJson(options.data)}');
+        }
       }
       AppLogger.i(logBuffer.toString());
     }
@@ -97,6 +103,32 @@ class ApiInterceptor extends Interceptor {
     }
     return handler.next(err);
   }
+}
+
+String _prettyFormData(FormData formData) {
+  final buffer = StringBuffer();
+
+  // Fields
+  buffer.writeln('📦 Fields:');
+  for (final field in formData.fields) {
+    buffer.writeln('  ${field.key}: ${field.value}');
+  }
+
+  // Files
+  if (formData.files.isNotEmpty) {
+    buffer.writeln('📁 Files:');
+    for (final file in formData.files) {
+      final multipartFile = file.value;
+      buffer.writeln(
+        '  ${file.key}: '
+        'filename=${multipartFile.filename}, '
+        'length=${multipartFile.length}, '
+        'contentType=${multipartFile.contentType}',
+      );
+    }
+  }
+
+  return buffer.toString();
 }
 
 String _prettifyJson(dynamic data) {

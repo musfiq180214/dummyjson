@@ -9,7 +9,7 @@ class Step5Preview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final form = ref.watch(preRegistrationFormProvider);
+    final form = ref.watch(orderFormProvider);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),

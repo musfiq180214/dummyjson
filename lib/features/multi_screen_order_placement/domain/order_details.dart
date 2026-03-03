@@ -353,7 +353,7 @@ class BankAccount {
 }
 
 extension PilgrimMapper on PilgrimDetailsResponse {
-  PreRegistrationForm toForm() {
+  OrderForm toForm() {
     final permanentAddress = addresses?.firstWhere(
       (a) => a.addressType == 'permanent',
       orElse: () => Address(
@@ -388,7 +388,7 @@ extension PilgrimMapper on PilgrimDetailsResponse {
         ? bankAccounts!.first
         : null;
 
-    return PreRegistrationForm(
+    return OrderForm(
       registrationType: registrationType ?? 'others',
       medium: medium ?? '',
       residentType: residentType ?? '',

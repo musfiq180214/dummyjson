@@ -1,5 +1,7 @@
 import 'package:dummyjson/core/constants/urls.dart';
 import 'package:dummyjson/core/widgets/dynamic_dropdown_id.dart';
+import 'package:dummyjson/core/widgets/dynamic_dropdown_id_local.dart';
+import 'package:dummyjson/features/multi_screen_order_placement/data/local_dropdown_repository.dart';
 import 'package:dummyjson/features/multi_screen_order_placement/provider/drop_down_provider.dart';
 import 'package:dummyjson/features/multi_screen_order_placement/provider/order_placement_provider.dart';
 import 'package:dummyjson/features/multi_screen_order_placement/widgets/text_input.dart';
@@ -7,21 +9,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Step3Form extends ConsumerWidget {
-  const Step3Form({super.key});
+  Step3Form({super.key});
+
+  final Map<String, List<String>> districtPoliceStations = {
+    "Dhaka": ["Mohammadpur", "Adabor", "Shahbagh"],
+    "Khulna": ["Batiaghata", "Rupsha"],
+  };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(preRegistrationFormProvider.notifier);
+    final notifier = ref.read(orderFormProvider.notifier);
     final permanentDistrictId = ref.watch(
-      preRegistrationFormProvider.select((state) => state.permanentDistrictId),
+      orderFormProvider.select((state) => state.permanentDistrictId),
     );
 
     final currentDistrictId = ref.watch(
-      preRegistrationFormProvider.select((state) => state.currentDistrictId),
+      orderFormProvider.select((state) => state.currentDistrictId),
     );
 
     final sameAsPermanent = ref.watch(
-      preRegistrationFormProvider.select((state) => state.sameAsPermanent),
+      orderFormProvider.select((state) => state.sameAsPermanent),
     );
 
     final districtDropDownRequest = DropdownRequest(
@@ -64,14 +71,23 @@ class Step3Form extends ConsumerWidget {
             ),
           ),
           SizedBox(height: 10),
-          DynamicDropdownID(
+          // DynamicDropdownID(
+          //   hint: "District",
+          //   selector: (form) => form.permanentDistrictId,
+          //   onUpdate: (notifier, id, name, _) {
+          //     ref.read(preRegistrationFormProvider).permanentThanaId == null;
+          //     notifier.updatePermanentDistrict(id, name);
+          //   },
+          //   request: districtDropDownRequest,
+          // ),
+          DynamicDropdownIDLocal(
             hint: "District",
             selector: (form) => form.permanentDistrictId,
             onUpdate: (notifier, id, name, _) {
-              ref.read(preRegistrationFormProvider).permanentThanaId == null;
+              ref.read(orderFormProvider).permanentThanaId == null;
               notifier.updatePermanentDistrict(id, name);
             },
-            request: districtDropDownRequest,
+            items: LocalDropdownData.districts,
           ),
           SizedBox(height: 20),
           Text.rich(
@@ -91,12 +107,19 @@ class Step3Form extends ConsumerWidget {
             ),
           ),
           SizedBox(height: 10),
-          DynamicDropdownID(
+          // DynamicDropdownID(
+          //   hint: "Police Station",
+          //   selector: (form) => form.permanentThanaId,
+          //   onUpdate: (notifier, id, name, _) =>
+          //       notifier.updatePermanentThana(id, name),
+          //   request: pThanaDropDownRequest,
+          // ),
+          DynamicDropdownIDLocal(
             hint: "Police Station",
             selector: (form) => form.permanentThanaId,
             onUpdate: (notifier, id, name, _) =>
                 notifier.updatePermanentThana(id, name),
-            request: pThanaDropDownRequest,
+            items: LocalDropdownData.policeStations[permanentDistrictId] ?? [],
           ),
           SizedBox(height: 20),
 
@@ -118,7 +141,7 @@ class Step3Form extends ConsumerWidget {
           ),
           SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.permanentPostCode,
             hintText: "Post Code",
             onChanged: (code) {
@@ -148,7 +171,7 @@ class Step3Form extends ConsumerWidget {
           ),
           SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.permanentAddress,
             hintText: "Address",
             onChanged: notifier.updatePermanentAddress,
@@ -240,7 +263,7 @@ class Step3Form extends ConsumerWidget {
             ),
             SizedBox(height: 10),
             TextInputField(
-              provider: preRegistrationFormProvider,
+              provider: orderFormProvider,
               selector: (form) => form.currentPostCode,
               hintText: "Post Code",
               onChanged: (code) {
@@ -269,7 +292,7 @@ class Step3Form extends ConsumerWidget {
             ),
             SizedBox(height: 10),
             TextInputField(
-              provider: preRegistrationFormProvider,
+              provider: orderFormProvider,
               selector: (form) => form.currentAddress,
               hintText: "Address",
               onChanged: notifier.updateCurrentAddress,

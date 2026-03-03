@@ -19,7 +19,7 @@ class Step2Form extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(preRegistrationFormProvider.notifier);
+    final notifier = ref.read(orderFormProvider.notifier);
 
     AppLogger.i("Step2 form rebuilt");
 
@@ -42,7 +42,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Name (Bangla)"),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.nameBn,
             hintText: "Name (Bangla)",
             inputLanguage: InputLanguageType.bangla,
@@ -58,7 +58,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Full Name (English)"),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.fullNameEn,
             hintText: "Full Name (English)",
             inputLanguage: InputLanguageType.english,
@@ -72,7 +72,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Given Name"),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.givenName,
             hintText: "Given Name",
             onChanged: notifier.updateGivenName,
@@ -85,7 +85,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Surname"),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.surname,
             hintText: "Surname",
             onChanged: notifier.updateSurname,
@@ -98,7 +98,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Father's Name (Bangla)"),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.fatherNameBn,
             hintText: "Father's Name (Bangla)",
             inputLanguage: InputLanguageType.bangla,
@@ -113,7 +113,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Father's Name (English)"),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.fatherName,
             hintText: "Father's Name (English)",
             inputLanguage: InputLanguageType.english,
@@ -127,7 +127,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Mother's Name (Bangla)"),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.motherNameBn,
             hintText: "Mother's Name (Bangla)",
             inputLanguage: InputLanguageType.bangla,
@@ -142,7 +142,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Mother's Name (English)"),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.motherName,
             hintText: "Mother's Name (English)",
             inputLanguage: InputLanguageType.english,
@@ -170,9 +170,7 @@ class Step2Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final serviceType = ref
-                  .watch(
-                    preRegistrationFormProvider.select((f) => f.serviceType),
-                  )
+                  .watch(orderFormProvider.select((f) => f.serviceType))
                   ?.toLowerCase();
 
               if (serviceType != "government") return const SizedBox();
@@ -189,7 +187,7 @@ class Step2Form extends ConsumerWidget {
                   ),
                   const SizedBox(height: 10),
                   TextInputField(
-                    provider: preRegistrationFormProvider,
+                    provider: orderFormProvider,
                     selector: (form) => form.designationName ?? "",
                     hintText: "Designation",
                     onChanged: notifier.updateDesignation,
@@ -206,7 +204,7 @@ class Step2Form extends ConsumerWidget {
           buildLabel("Phone"),
           const SizedBox(height: 10),
           PhoneInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.mobile,
             hintText: "Phone",
             showCountryCode: true,
@@ -232,7 +230,7 @@ class Step2Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final status = ref.watch(
-                preRegistrationFormProvider.select((f) => f.maritalStatus),
+                orderFormProvider.select((f) => f.maritalStatus),
               );
 
               if (status != "Married") return const SizedBox();
@@ -243,7 +241,7 @@ class Step2Form extends ConsumerWidget {
                   buildLabel("Spouse Name"),
                   const SizedBox(height: 10),
                   TextInputField(
-                    provider: preRegistrationFormProvider,
+                    provider: orderFormProvider,
                     selector: (form) => form.spouseName,
                     hintText: "Spouse Name",
                     onChanged: notifier.updateSpouseName,

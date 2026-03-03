@@ -76,9 +76,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DynamicDropdownID extends ConsumerWidget {
   final String hint;
-  final int? Function(PreRegistrationForm) selector;
+  final int? Function(OrderForm) selector;
   final void Function(
-    PreRegistrationFormNotifier notifier,
+    OrderFormNotifier notifier,
     int id,
     String name,
     String? serviceType,
@@ -96,10 +96,8 @@ class DynamicDropdownID extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedValue = ref.watch(
-      preRegistrationFormProvider.select(selector),
-    );
-    final notifier = ref.read(preRegistrationFormProvider.notifier);
+    final selectedValue = ref.watch(orderFormProvider.select(selector));
+    final notifier = ref.read(orderFormProvider.notifier);
     final asyncDropdown = ref.watch(dropdownDataProvider(request));
 
     return asyncDropdown.when(

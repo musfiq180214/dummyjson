@@ -7,7 +7,7 @@ class StringDropdownSelector extends ConsumerWidget {
   final String? hint;
   final List<String> options;
   final void Function(String) onChanged;
-  final String Function(PreRegistrationForm) selector;
+  final String Function(OrderForm) selector;
 
   const StringDropdownSelector({
     super.key,
@@ -20,7 +20,7 @@ class StringDropdownSelector extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Only watch the specific string field
-    final value = ref.watch(preRegistrationFormProvider.select(selector));
+    final value = ref.watch(orderFormProvider.select(selector));
 
     return DropdownButtonFormField<String>(
       initialValue: value.isNotEmpty ? value : null,

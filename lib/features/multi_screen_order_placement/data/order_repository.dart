@@ -11,7 +11,7 @@ import '../../../core/utils/logger.dart';
 
 abstract class IPreRegistrationRepository {
   Future<PreRegResponse> preRegistration({
-    required PreRegistrationForm form,
+    required OrderForm form,
     required bool edit,
     required String applicationID,
   });
@@ -76,7 +76,7 @@ class PreRegistrationRepository implements IPreRegistrationRepository {
 
   @override
   Future<PreRegResponse> preRegistration({
-    required PreRegistrationForm form,
+    required OrderForm form,
     required bool edit,
     required String applicationID,
   }) async {

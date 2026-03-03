@@ -3,7 +3,10 @@ import 'package:dummyjson/core/constants/urls.dart';
 import 'package:dummyjson/core/theme/colors.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/widgets/dynamic_dropdown_id.dart';
+import 'package:dummyjson/core/widgets/dynamic_dropdown_id_local.dart';
 import 'package:dummyjson/core/widgets/dynamic_dropdown_string.dart';
+import 'package:dummyjson/features/multi_screen_order_placement/data/local_dropdown_repository.dart';
+import 'package:dummyjson/features/multi_screen_order_placement/presentation/order_placement_step_3.dart';
 import 'package:dummyjson/features/multi_screen_order_placement/provider/drop_down_provider.dart';
 import 'package:dummyjson/features/multi_screen_order_placement/provider/extra_providers.dart';
 import 'package:dummyjson/features/multi_screen_order_placement/provider/order_placement_provider.dart';
@@ -17,7 +20,7 @@ class Step4Form extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(preRegistrationFormProvider.notifier);
+    final notifier = ref.read(orderFormProvider.notifier);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -39,7 +42,7 @@ class Step4Form extends ConsumerWidget {
           const SizedBox(height: 10),
           StringDropdownSelector(
             hint: "Select Owner Type",
-            options: ["Self", "Guardian", "Nearest Relative", "Maharam"],
+            options: ["Self", "Admin"],
             onChanged: notifier.updateAccountType,
             selector: (form) => form.accountType,
           ),
@@ -59,7 +62,7 @@ class Step4Form extends ConsumerWidget {
           ),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.accountHolderName,
             hintText: "Account Holder Name",
             onChanged: notifier.updateAccountHolderName,
@@ -80,7 +83,7 @@ class Step4Form extends ConsumerWidget {
           ),
           const SizedBox(height: 10),
           TextInputField(
-            provider: preRegistrationFormProvider,
+            provider: orderFormProvider,
             selector: (form) => form.accountNumber,
             hintText: "Account Number",
             keyboardType: TextInputType.number,
@@ -92,14 +95,21 @@ class Step4Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final bankId = ref.watch(
-                preRegistrationFormProvider.select((f) => f.bankId),
+                orderFormProvider.select((f) => f.bankId),
               );
-              return DynamicDropdownID(
+              // return DynamicDropdownID(
+              //   hint: "Select Bank",
+              //   selector: (_) => bankId,
+              //   onUpdate: (notifier, id, name, _) =>
+              //       notifier.updateBankId(id, name),
+              //   request: DropdownRequest(endpoint: "ApiEndpoints.bankDropdown"),
+              // );
+              return DynamicDropdownIDLocal(
                 hint: "Select Bank",
-                selector: (_) => bankId,
+                selector: (form) => form.bankId,
                 onUpdate: (notifier, id, name, _) =>
                     notifier.updateBankId(id, name),
-                request: DropdownRequest(endpoint: "ApiEndpoints.bankDropdown"),
+                items: LocalDropdownData.banks,
               );
             },
           ),
@@ -109,24 +119,17 @@ class Step4Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final bankId = ref.watch(
-                preRegistrationFormProvider.select((f) => f.bankId),
-              );
-              final bankDistrictId = ref.watch(
-                preRegistrationFormProvider.select((f) => f.bankDistrictId),
+                orderFormProvider.select((f) => f.bankId),
               );
 
               if (bankId == null) return const SizedBox.shrink();
 
-              return DynamicDropdownID(
+              return DynamicDropdownIDLocal(
                 hint: "Select Bank District",
-                selector: (_) => bankDistrictId,
+                selector: (form) => form.bankDistrictId,
+                items: LocalDropdownData.bankDistricts[bankId] ?? [],
                 onUpdate: (notifier, id, name, _) =>
                     notifier.updateBankDistrictId(id, name),
-                request: DropdownRequest(
-                  endpoint:
-                      "${"ApiEndpoints.bankDistrictDropdown"}"
-                      "?bank_id=$bankId&is_ref_required=false",
-                ),
               );
             },
           ),
@@ -135,37 +138,33 @@ class Step4Form extends ConsumerWidget {
           // Bank Branch Dropdown
           Consumer(
             builder: (context, ref, _) {
-              final bankId = ref.watch(
-                preRegistrationFormProvider.select((f) => f.bankId),
-              );
-              final bankDistrictId = ref.watch(
-                preRegistrationFormProvider.select((f) => f.bankDistrictId),
-              );
-              final bankBranchId = ref.watch(
-                preRegistrationFormProvider.select((f) => f.bankBranchId),
-              );
+              final form = ref.watch(orderFormProvider);
 
-              if (bankId == null || bankDistrictId == null)
+              final bankId = form.bankId;
+              final districtId = form.bankDistrictId;
+
+              if (bankId == null || districtId == null) {
                 return const SizedBox.shrink();
+              }
 
-              return DynamicDropdownID(
+              final key = "${bankId}_$districtId";
+
+              return DynamicDropdownIDLocal(
                 hint: "Select Bank Branch",
-                selector: (_) => bankBranchId,
+                selector: (form) => form.bankBranchId,
+                items: LocalDropdownData.bankBranches[key] ?? [],
                 onUpdate: (notifier, id, name, _) =>
                     notifier.updateBankBranchId(id, name),
-                request: DropdownRequest(
-                  endpoint:
-                      "${"ApiEndpoints.branchDropdown"}?bank_id=$bankId&district_id=$bankDistrictId",
-                ),
               );
             },
           ),
+
           const SizedBox(height: 20),
 
           // Profile Photo
           Consumer(
             builder: (context, ref, _) {
-              final form = ref.watch(preRegistrationFormProvider);
+              final form = ref.watch(orderFormProvider);
 
               Widget buildProfilePhoto() {
                 if (form.localProfilePhoto != null) {
@@ -224,7 +223,7 @@ class Step4Form extends ConsumerWidget {
                         if (compressedImage != null &&
                             compressedImage.path.isNotEmpty) {
                           ref
-                              .read(preRegistrationFormProvider.notifier)
+                              .read(orderFormProvider.notifier)
                               .updatePhoto(compressedImage);
                         }
                       }
@@ -247,7 +246,7 @@ class Step4Form extends ConsumerWidget {
           // Birth Certificate for Minors
           Consumer(
             builder: (context, ref, _) {
-              final form = ref.watch(preRegistrationFormProvider);
+              final form = ref.watch(orderFormProvider);
               if (!form.isMinor) return const SizedBox.shrink();
 
               return Column(
@@ -289,7 +288,7 @@ class Step4Form extends ConsumerWidget {
                         if (compressedImage != null &&
                             compressedImage.path.isNotEmpty) {
                           ref
-                              .read(preRegistrationFormProvider.notifier)
+                              .read(orderFormProvider.notifier)
                               .updateBirthCertificate(compressedImage);
                         }
                       }

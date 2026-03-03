@@ -13,10 +13,8 @@ class Step1Form extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(preRegistrationFormProvider.notifier);
-    final selectedMedium = ref.watch(
-      preRegistrationFormProvider.select((s) => s.medium),
-    );
+    final notifier = ref.read(orderFormProvider.notifier);
+    final selectedMedium = ref.watch(orderFormProvider.select((s) => s.medium));
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -27,7 +25,7 @@ class Step1Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final registrationType = ref.watch(
-                preRegistrationFormProvider.select((s) => s.registrationType),
+                orderFormProvider.select((s) => s.registrationType),
               );
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,7 +33,7 @@ class Step1Form extends ConsumerWidget {
                   Text.rich(
                     TextSpan(
                       children: [
-                        const TextSpan(text: "Registration Type"),
+                        const TextSpan(text: "Order Type"),
                         // TextSpan(
                         //     text: ' *', style: TextStyle(color: Colors.red)),
                       ],
@@ -100,7 +98,7 @@ class Step1Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final residentType = ref.watch(
-                preRegistrationFormProvider.select((s) => s.residentType),
+                orderFormProvider.select((s) => s.residentType),
               );
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,9 +131,7 @@ class Step1Form extends ConsumerWidget {
                     Consumer(
                       builder: (context, ref, child) {
                         final nationalityId = ref.watch(
-                          preRegistrationFormProvider.select(
-                            (s) => s.nationalityId,
-                          ),
+                          orderFormProvider.select((s) => s.nationalityId),
                         );
 
                         final nationalityDropDownRequest = DropdownRequest(
@@ -180,7 +176,7 @@ class Step1Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final gender = ref.watch(
-                preRegistrationFormProvider.select((s) => s.gender),
+                orderFormProvider.select((s) => s.gender),
               );
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,7 +214,7 @@ class Step1Form extends ConsumerWidget {
           // Date of Birth
           Consumer(
             builder: (context, ref, _) {
-              final form = ref.watch(preRegistrationFormProvider);
+              final form = ref.watch(orderFormProvider);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -299,31 +295,29 @@ class Step1Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, child) {
               final isMinor = ref.watch(
-                preRegistrationFormProvider.select((state) => state.isMinor),
+                orderFormProvider.select((state) => state.isMinor),
               );
               final identityType = ref.watch(
-                preRegistrationFormProvider.select((s) => s.identityType),
+                orderFormProvider.select((s) => s.identityType),
               );
               final passportType = ref.watch(
-                preRegistrationFormProvider.select((s) => s.passportType),
+                orderFormProvider.select((s) => s.passportType),
               );
               final passportCategory = ref.watch(
-                preRegistrationFormProvider.select((s) => s.passportCategory),
+                orderFormProvider.select((s) => s.passportCategory),
               );
               final passportIssueDate = ref.watch(
-                preRegistrationFormProvider.select((s) => s.passportIssueDate),
+                orderFormProvider.select((s) => s.passportIssueDate),
               );
               final passportExpiryDate = ref.watch(
-                preRegistrationFormProvider.select((s) => s.passportExpiryDate),
+                orderFormProvider.select((s) => s.passportExpiryDate),
               );
-              final nid = ref.watch(
-                preRegistrationFormProvider.select((s) => s.nid),
-              );
+              final nid = ref.watch(orderFormProvider.select((s) => s.nid));
               final passportNumber = ref.watch(
-                preRegistrationFormProvider.select((s) => s.passportNo),
+                orderFormProvider.select((s) => s.passportNo),
               );
               final birthCertificateNo = ref.watch(
-                preRegistrationFormProvider.select((s) => s.birthCertificateNo),
+                orderFormProvider.select((s) => s.birthCertificateNo),
               );
 
               return Column(
@@ -542,7 +536,7 @@ class Step1Form extends ConsumerWidget {
                         initialValue: passportNumber,
                         hintText: "Passport Number",
                         onChanged: notifier.updatePassportNo,
-                        provider: preRegistrationFormProvider,
+                        provider: orderFormProvider,
                         selector: (form) => form.passportNo,
                       ),
 
@@ -576,7 +570,7 @@ class Step1Form extends ConsumerWidget {
                             notifier.updateNid(value);
                           }
                         },
-                        provider: preRegistrationFormProvider,
+                        provider: orderFormProvider,
                         selector: (form) =>
                             isMinor ? form.birthCertificateNo : form.nid,
                       ),
@@ -600,7 +594,7 @@ class Step1Form extends ConsumerWidget {
                         initialValue: nid,
                         hintText: "NID Number",
                         onChanged: notifier.updateNid,
-                        provider: preRegistrationFormProvider,
+                        provider: orderFormProvider,
                         selector: (form) => form.nid,
                       ),
                     ]
@@ -624,7 +618,7 @@ class Step1Form extends ConsumerWidget {
                         initialValue: birthCertificateNo,
                         hintText: "Birth Certificate Number",
                         onChanged: notifier.updateBirthCertificateNo,
-                        provider: preRegistrationFormProvider,
+                        provider: orderFormProvider,
                         selector: (form) => form.birthCertificateNo,
                       ),
                     ],
@@ -636,13 +630,13 @@ class Step1Form extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final isMinor = ref.watch(
-                preRegistrationFormProvider.select((state) => state.isMinor),
+                orderFormProvider.select((state) => state.isMinor),
               );
               final guardianNumber = ref.watch(
-                preRegistrationFormProvider.select((s) => s.guardianTrackingNo),
+                orderFormProvider.select((s) => s.guardianTrackingNo),
               );
               final gender = ref.watch(
-                preRegistrationFormProvider.select((s) => s.gender),
+                orderFormProvider.select((s) => s.gender),
               );
 
               // Show guardian if minor OR female
@@ -670,7 +664,7 @@ class Step1Form extends ConsumerWidget {
                       initialValue: guardianNumber,
                       hintText: "Guardian Tracking Number",
                       onChanged: notifier.updateGuardianTrackingNo,
-                      provider: preRegistrationFormProvider,
+                      provider: orderFormProvider,
                       selector: (form) => form.guardianTrackingNo,
                     ),
                     const SizedBox(height: 10),

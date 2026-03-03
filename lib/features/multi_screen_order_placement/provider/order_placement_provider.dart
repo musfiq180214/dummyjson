@@ -13,10 +13,10 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../core/utils/logger.dart';
 
-class PreRegistrationFormNotifier extends StateNotifier<PreRegistrationForm> {
+class OrderFormNotifier extends StateNotifier<OrderForm> {
   final Ref? ref;
 
-  PreRegistrationFormNotifier({this.ref}) : super(PreRegistrationForm());
+  OrderFormNotifier({this.ref}) : super(OrderForm());
 
   // Step 1
   void updateRegistrationType(bool val) {
@@ -443,10 +443,10 @@ class PreRegistrationFormNotifier extends StateNotifier<PreRegistrationForm> {
   }
 
   void reset() {
-    state = PreRegistrationForm();
+    state = OrderForm();
   }
 
-  Future<void> loadPresetValues(PreRegistrationForm preset) async {
+  Future<void> loadPresetValues(OrderForm preset) async {
     state = state.copyWith(
       registrationType: preset.registrationType.toLowerCase(),
       medium: preset.medium == "government" ? "Government" : "Private",
@@ -553,10 +553,9 @@ class PreRegistrationFormNotifier extends StateNotifier<PreRegistrationForm> {
   }
 }
 
-final preRegistrationFormProvider =
-    StateNotifierProvider<PreRegistrationFormNotifier, PreRegistrationForm>(
-      (ref) => PreRegistrationFormNotifier(ref: ref),
-    );
+final orderFormProvider = StateNotifierProvider<OrderFormNotifier, OrderForm>(
+  (ref) => OrderFormNotifier(ref: ref),
+);
 
 class PreRegistrationNotifier extends AutoDisposeAsyncNotifier<PreRegResponse> {
   @override
@@ -565,7 +564,7 @@ class PreRegistrationNotifier extends AutoDisposeAsyncNotifier<PreRegResponse> {
   }
 
   Future<void> preRegistration({
-    required PreRegistrationForm form,
+    required OrderForm form,
     required bool edit,
     required String applicationID,
   }) async {
@@ -579,9 +578,7 @@ class PreRegistrationNotifier extends AutoDisposeAsyncNotifier<PreRegResponse> {
       );
 
       // Update the form state with server URLs
-      ref
-          .read(preRegistrationFormProvider.notifier)
-          .updateServerPhoto(response.imageUrl);
+      ref.read(orderFormProvider.notifier).updateServerPhoto(response.imageUrl);
 
       state = AsyncData(response);
     } on DioException catch (dioError, st) {

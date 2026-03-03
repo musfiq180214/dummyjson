@@ -99,7 +99,7 @@ final List<AppRoute> appRoutes = [
   AppRoute(
     path: RouteNames.multiScreenOrderPlacement,
     builder: (context, state) {
-      return const MultiStepPreRegistrationScreen();
+      return const MultiStepOrderScreen();
     },
   ),
 ];
