@@ -1,5 +1,5 @@
 const String baseUrlDevelopment = 'https://dummyjson.com';
-const String baseUrlProduction = '';
+const String baseUrlProduction = 'https://dummyjson.com';
 
 class ApiEndpoints {
   static const String appUpdateCheck = '';
