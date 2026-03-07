@@ -1,6 +1,7 @@
 import 'package:dummyjson/core/navigation/route_names.dart';
 import 'package:dummyjson/features/auth/domain/login_response.dart';
 import 'package:dummyjson/features/auth/presentation/login.dart';
+import 'package:dummyjson/features/compass/presentation/compass_screen.dart';
 import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dart';
 import 'package:dummyjson/features/home/domain/home_models.dart';
 import 'package:dummyjson/features/landing/presentation/landing_screen.dart';
@@ -100,6 +101,13 @@ final List<AppRoute> appRoutes = [
     path: RouteNames.multiScreenOrderPlacement,
     builder: (context, state) {
       return const MultiStepOrderScreen();
+    },
+  ),
+
+  AppRoute(
+    path: RouteNames.compass,
+    builder: (context, state) {
+      return const CompassScreen();
     },
   ),
 ];

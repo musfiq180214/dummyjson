@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "guest_home": MessageLookupByLibrary.simpleMessage("Guest Home"),
     "guest_other": MessageLookupByLibrary.simpleMessage("Guest Other"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "kibla": MessageLookupByLibrary.simpleMessage("Kibla"),
     "new_to_app": MessageLookupByLibrary.simpleMessage("New to this app?"),
     "please_enter_pass": MessageLookupByLibrary.simpleMessage("Enter Password"),
     "please_enter_username": MessageLookupByLibrary.simpleMessage(

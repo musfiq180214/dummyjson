@@ -58,6 +58,8 @@ class HomeScreen extends ConsumerWidget {
                 AppNavigator.pushTo(RouteNames.productList);
               } else if (value == 'multi_screen_order_placement') {
                 AppNavigator.pushTo(RouteNames.multiScreenOrderPlacement);
+              } else if (value == 'compass') {
+                AppNavigator.pushTo(RouteNames.compass);
               } else if (value == 'others') {
                 AppLogger.i("Others clicked");
               }
@@ -69,6 +71,10 @@ class HomeScreen extends ConsumerWidget {
               PopupMenuItem(
                 value: 'multi_screen_order_placement',
                 child: Text('Multi Screen Order Placement'),
+              ),
+              PopupMenuItem(
+                value: 'compass',
+                child: Text('Compass'),
               ),
               PopupMenuItem(value: 'others', child: Text('Others')),
             ],

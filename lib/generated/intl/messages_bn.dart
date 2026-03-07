@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "guest_home": MessageLookupByLibrary.simpleMessage("গেস্ট হোম"),
     "guest_other": MessageLookupByLibrary.simpleMessage("গেস্ট অন্যান্য"),
     "home": MessageLookupByLibrary.simpleMessage("হোম"),
+    "kibla": MessageLookupByLibrary.simpleMessage("কিবলা"),
     "new_to_app": MessageLookupByLibrary.simpleMessage("এই অ্যাপ এ নতুন?"),
     "please_enter_pass": MessageLookupByLibrary.simpleMessage(
       "পাসওয়ার্ড প্রবেশ করুন",

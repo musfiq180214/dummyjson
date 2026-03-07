@@ -203,6 +203,11 @@ class S {
   String get refresh {
     return Intl.message('Refresh', name: 'refresh', desc: '', args: []);
   }
+
+  /// `Kibla`
+  String get kibla {
+    return Intl.message('Kibla', name: 'kibla', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
