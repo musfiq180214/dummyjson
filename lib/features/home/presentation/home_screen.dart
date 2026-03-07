@@ -60,6 +60,8 @@ class HomeScreen extends ConsumerWidget {
                 AppNavigator.pushTo(RouteNames.multiScreenOrderPlacement);
               } else if (value == 'compass') {
                 AppNavigator.pushTo(RouteNames.compass);
+              }else if (value == 'namaz') {
+                AppNavigator.pushTo(RouteNames.namaz);
               } else if (value == 'others') {
                 AppLogger.i("Others clicked");
               }
@@ -75,6 +77,10 @@ class HomeScreen extends ConsumerWidget {
               PopupMenuItem(
                 value: 'compass',
                 child: Text('Compass'),
+              ),
+              PopupMenuItem(
+                value: 'namaz',
+                child: Text('Namaz'),
               ),
               PopupMenuItem(value: 'others', child: Text('Others')),
             ],

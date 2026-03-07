@@ -11,4 +11,5 @@ abstract class RouteNames {
       '/multi-screen-order-placement';
   static const String orderSuccess = '/order-success';
   static const String compass = '/compass';
+  static const String namaz = '/namaz';
 }

@@ -6,6 +6,7 @@ import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dar
 import 'package:dummyjson/features/home/domain/home_models.dart';
 import 'package:dummyjson/features/landing/presentation/landing_screen.dart';
 import 'package:dummyjson/features/multi_screen_order_placement/presentation/multi_screen_order_placement.dart';
+import 'package:dummyjson/features/namaz/presentaion/namaz_screen.dart';
 import 'package:dummyjson/features/onboarding/presentation/splash_page.dart';
 import 'package:dummyjson/features/product_list/domain/product_response_model.dart';
 import 'package:dummyjson/features/product_list/presentation/product_detail_screen.dart';
@@ -108,6 +109,13 @@ final List<AppRoute> appRoutes = [
     path: RouteNames.compass,
     builder: (context, state) {
       return const CompassScreen();
+    },
+  ),
+
+  AppRoute(
+    path: RouteNames.namaz,
+    builder: (context, state) {
+      return const NamazScreen();
     },
   ),
 ];
