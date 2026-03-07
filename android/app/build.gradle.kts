@@ -1,3 +1,14 @@
+project.afterEvaluate {
+    tasks.filter { it.name.startsWith("compileFlutterBuild") }.forEach { task ->
+        val flavor = task.name.substringAfter("compileFlutterBuild").lowercase()
+        if (flavor.contains("staging")) {
+            (task as? com.flutter.gradle.tasks.FlutterTask)?.let { it.targetPath = "lib/main_staging.dart" }
+        } else if (flavor.contains("production")) {
+            (task as? com.flutter.gradle.tasks.FlutterTask)?.let { it.targetPath = "lib/main_production.dart" }
+        }
+    }
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -28,6 +39,21 @@ android {
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+    }
+
+    flavorDimensions.add("app")
+
+    productFlavors {
+        create("staging") {
+            dimension = "app"
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+            resValue("string", "app_name", "DummyJSON Delivery Staging")
+        }
+        create("production") {
+            dimension = "app"
+            resValue("string", "app_name", "DummyJSON")
+        }
     }
 
     buildTypes {
