@@ -26,4 +26,6 @@ void main() async {
   flutter emulators --launch Pixel_5
   To RUN Staging:
   flutter run --flavor staging -t lib/main_staging.dart
+  To Build Staging APK:
+  flutter build apk --debug -t lib/main_staging.dart
 */
