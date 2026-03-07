@@ -22,7 +22,8 @@ void main() async {
   update directory of app icon in pubspec.yaml
   In Terminal:
   flutter pub run flutter_launcher_icons:main
+  To RUN emulator first:
+  flutter emulators --launch Pixel_5
   To RUN Staging:
   flutter run --flavor staging -t lib/main_staging.dart
-
 */
