@@ -87,6 +87,7 @@ flutter:
     - assets/png/
     - assets/app_icon/
     - assets/splash/
+    - assets/images/
 
 flutter_icons:
   android: true

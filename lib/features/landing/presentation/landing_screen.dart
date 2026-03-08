@@ -13,6 +13,7 @@ import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/features/auth/providers/login_provider.dart';
+import 'package:dummyjson/features/cart/presentation/cart_screen.dart';
 import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dart';
 import 'package:dummyjson/features/guest_others/presentation/guest_other_screen.dart';
 import 'package:dummyjson/features/home/presentation/home_screen.dart';
@@ -40,6 +41,7 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
     HomeScreen(),
     ProductListScreen(),
     ProductSearchScreen(),
+    CartScreen()
   ];
 
   bool _hasRequested = false;
@@ -163,6 +165,10 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.search, color: Colors.black),
                 label: context.t.product_search,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart, color: Colors.black),
+                label: context.t.cart,
               ),
             ],
           ],

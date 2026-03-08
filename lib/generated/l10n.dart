@@ -208,6 +208,11 @@ class S {
   String get kibla {
     return Intl.message('Kibla', name: 'kibla', desc: '', args: []);
   }
+
+  /// `Cart`
+  String get cart {
+    return Intl.message('Cart', name: 'cart', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

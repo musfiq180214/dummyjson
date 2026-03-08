@@ -19,5 +19,6 @@
     "product": "Product",
     "product_details": "Product Details",
     "refresh": "Refresh",
-    "kibla": "Kibla"
+    "kibla": "Kibla",
+    "cart": "Cart"
 }

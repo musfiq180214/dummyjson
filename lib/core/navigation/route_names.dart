@@ -12,4 +12,5 @@ abstract class RouteNames {
   static const String orderSuccess = '/order-success';
   static const String compass = '/compass';
   static const String namaz = '/namaz';
+  static const String cart = '/cart';
 }
