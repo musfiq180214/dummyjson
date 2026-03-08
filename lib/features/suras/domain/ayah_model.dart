@@ -2,19 +2,19 @@
 class Ayah {
   final int number;
   final String text;
-  final String translation;
+  final bool sajda;
 
   Ayah({
     required this.number,
     required this.text,
-    required this.translation,
+    required this.sajda
   });
 
   factory Ayah.fromJson(Map<String, dynamic> json) {
     return Ayah(
       number: json["numberInSurah"],
       text: json["text"] ?? "",
-      translation: json["edition"] != null ? json["edition"]["text"] ?? "" : "",
+      sajda: json["sajda"] ?? false
     );
   }
 }

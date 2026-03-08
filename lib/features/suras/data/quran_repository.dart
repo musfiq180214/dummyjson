@@ -38,7 +38,7 @@ class QuranDetailRepository implements IQuranDetailRepository {
         .map((e) => Ayah(
       number: e["numberInSurah"],
       text: e["text"] ?? "",
-      translation: e["translation"] ?? "",
+      sajda: e["sajda"] ?? false
     ))
         .toList();
   }

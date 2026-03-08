@@ -28,18 +28,10 @@ class SurahDetailScreen extends ConsumerWidget {
               final ayah = ayahs[index];
               return ListTile(
                 title: Text(
-                  ayah.text,
+                  "${ayah.number}. ${ayah.text}", // Display number before Arabic text
                   textAlign: TextAlign.right,
                   style: const TextStyle(fontSize: 20),
                 ),
-                subtitle: ayah.translation.isNotEmpty
-                    ? Text(
-                  ayah.translation,
-                  textAlign: TextAlign.left,
-                  style:
-                  const TextStyle(fontSize: 16, color: Colors.grey),
-                )
-                    : null,
               );
             },
           );

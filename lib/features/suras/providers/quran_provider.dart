@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import '../data/quran_repository.dart';
 import '../domain/ayah_model.dart';
 import '../domain/surah_model.dart';
+import 'package:dummyjson/core/network/api_client.dart';
 
-final dioProvider = Provider((ref) => Dio());
 
 final quranRepositoryProvider = Provider<IQuranRepository>((ref) {
   return QuranRepository(ref.watch(dioProvider));
