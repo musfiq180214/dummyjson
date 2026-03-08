@@ -62,7 +62,11 @@ class HomeScreen extends ConsumerWidget {
                 AppNavigator.pushTo(RouteNames.compass);
               }else if (value == 'namaz') {
                 AppNavigator.pushTo(RouteNames.namaz);
-              } else if (value == 'others') {
+
+              }else if (value == 'surah_list'){
+                AppNavigator.pushTo(RouteNames.surah_list);
+              }
+              else if (value == 'others') {
                 AppLogger.i("Others clicked");
               }
             },
@@ -81,6 +85,10 @@ class HomeScreen extends ConsumerWidget {
               PopupMenuItem(
                 value: 'namaz',
                 child: Text('Namaz'),
+              ),
+              PopupMenuItem(
+                value: 'surah_list',
+                child: Text('Surah'),
               ),
               PopupMenuItem(value: 'others', child: Text('Others')),
             ],

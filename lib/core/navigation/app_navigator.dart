@@ -14,6 +14,7 @@ import 'package:dummyjson/features/product_list/presentation/product_detail_scre
 import 'package:dummyjson/features/product_list/presentation/product_list_screen.dart';
 import 'package:dummyjson/features/product_search/presentation/product_search_screen.dart';
 import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
+import 'package:dummyjson/features/suras/presentation/surah_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -126,6 +127,15 @@ final List<AppRoute> appRoutes = [
       return const CartScreen();
     },
   ),
+
+  AppRoute(
+    path: RouteNames.surah_list,
+    builder: (context, state) {
+      return const SurahListScreen();
+    },
+  ),
+
+
 
 
 ];
