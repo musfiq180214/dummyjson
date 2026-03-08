@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../provider/namaz_provider.dart';
+import 'package:intl/intl.dart';
 
 class NamazScreen extends ConsumerWidget {
   const NamazScreen({super.key});
@@ -121,6 +122,17 @@ class NamazScreen extends ConsumerWidget {
   int _toMinutes(TimeOfDay t) {
     return t.hour * 60 + t.minute;
   }
+  String formatTo12Hour(String time) {
+    final cleanTime = time.split(" ").first;
+
+    final parts = cleanTime.split(":");
+    int hour = int.parse(parts[0]);
+    int minute = int.parse(parts[1]);
+
+    final date = DateTime(2024, 1, 1, hour, minute);
+
+    return DateFormat("hh:mm a").format(date);
+  }
 
   /// Next prayer banner
   Widget _nextPrayerBanner(String name, String time) {
@@ -142,7 +154,7 @@ class NamazScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            "$name • $time",
+            "$name • ${formatTo12Hour(time)}",
             style: const TextStyle(
               color: Colors.white,
               fontSize: 22,
@@ -202,7 +214,7 @@ class NamazScreen extends ConsumerWidget {
           ),
 
           Text(
-            time,
+            formatTo12Hour(time),
             style: TextStyle(
               fontSize: 18,
               color: textColor,
