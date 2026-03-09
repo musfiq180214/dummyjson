@@ -14,4 +14,6 @@ abstract class RouteNames {
   static const String namaz = '/namaz';
   static const String cart = '/cart';
   static const String surah_list = '/surah_list';
+  static const String payment = '/payment';
+  static const paymentSuccess = "/payment-success";
 }

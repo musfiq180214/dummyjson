@@ -40,31 +40,42 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-            // Second row: back button, title, actions
             SizedBox(
               height: kToolbarHeight,
-              child: Row(
-                children: [
-                  if (canGoBack)
-                    IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.green,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ), // 👈 left & right padding
+                child: Row(
+                  children: [
+                    if (canGoBack)
+                      IconButton(
+                        padding: const EdgeInsets.only(
+                          left: 4,
+                        ), // 👈 small inner spacing
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.green,
+                        ),
+                        onPressed:
+                            onBackPress ?? () => Navigator.of(context).pop(),
                       ),
-                      onPressed:
-                          onBackPress ?? () => Navigator.of(context).pop(),
-                    ),
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: AppTextStyles.bodyM.copyWith(
-                        color: Colors.green,
-                        fontSize: 18,
+
+                    const SizedBox(width: 4), // 👈 space between icon and title
+
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: AppTextStyles.bodyM.copyWith(
+                          color: Colors.green,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  ),
-                  if (actions != null) ...actions!,
-                ],
+
+                    if (actions != null) ...actions!,
+                  ],
+                ),
               ),
             ),
           ],

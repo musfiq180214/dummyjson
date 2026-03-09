@@ -9,6 +9,8 @@ import 'package:dummyjson/features/landing/presentation/landing_screen.dart';
 import 'package:dummyjson/features/multi_screen_order_placement/presentation/multi_screen_order_placement.dart';
 import 'package:dummyjson/features/namaz/presentaion/namaz_screen.dart';
 import 'package:dummyjson/features/onboarding/presentation/splash_page.dart';
+import 'package:dummyjson/features/payment/presentation/bkash_payment_screen.dart';
+import 'package:dummyjson/features/payment/presentation/payment_success_screen.dart';
 import 'package:dummyjson/features/product_list/domain/product_response_model.dart';
 import 'package:dummyjson/features/product_list/presentation/product_detail_screen.dart';
 import 'package:dummyjson/features/product_list/presentation/product_list_screen.dart';
@@ -135,9 +137,27 @@ final List<AppRoute> appRoutes = [
     },
   ),
 
+  AppRoute(
+    path: RouteNames.payment,
+    builder: (p0, p1) => const BkashPaymentScreen(),
+  ),
 
+  AppRoute(
+    path: RouteNames.paymentSuccess,
+    builder: (context, state) {
+      final data = state.extra as Map<String, dynamic>?;
 
+      if (data == null) {
+        return const Scaffold(body: Center(child: Text("No payment data")));
+      }
 
+      return PaymentSuccessScreen(
+        number: data["number"],
+        trxId: data["trxId"],
+        amount: data["amount"],
+      );
+    },
+  ),
 ];
 
 final goRouterProvider = Provider<GoRouter>((ref) {
