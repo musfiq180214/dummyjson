@@ -13,6 +13,7 @@ class HiveService {
   static const String cartBox = 'cart';
   static const String ordersBox = 'orders';
   static const String locationBox = 'location';
+  static const String videoPlayerBox = 'video_player_box';
 
   // Keys
   static const String keyInitialLocation = 'initial_location';

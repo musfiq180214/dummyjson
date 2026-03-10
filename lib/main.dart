@@ -16,15 +16,26 @@ import 'generated/l10n.dart'; // <- S class
 
 import 'core/navigation/app_navigator.dart';
 
-Future<void> dummJSON() async {
+Future<void> dummJSON({bool clearHive = false}) async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Hive.initFlutter();
 
+  if (clearHive) {
+    // Delete all Hive boxes
+    await Hive.deleteBoxFromDisk(HiveService.settingsBox);
+    await Hive.deleteBoxFromDisk(HiveService.cartBox);
+    await Hive.deleteBoxFromDisk(HiveService.ordersBox);
+    await Hive.deleteBoxFromDisk(HiveService.locationBox);
+    await Hive.deleteBoxFromDisk(HiveService.videoPlayerBox);
+  }
+
+  // Re-open boxes
   await Hive.openBox(HiveService.settingsBox);
   await Hive.openBox(HiveService.cartBox);
   await Hive.openBox(HiveService.ordersBox);
   await Hive.openBox(HiveService.locationBox);
+  await Hive.openBox(HiveService.videoPlayerBox);
 
   FlavorConfig.instantiate(
     flavor: Flavor.staging,

@@ -16,4 +16,5 @@ abstract class RouteNames {
   static const String surah_list = '/surah_list';
   static const String payment = '/payment';
   static const paymentSuccess = "/payment-success";
+  static const String coursesScreen = '/courses_screen';
 }

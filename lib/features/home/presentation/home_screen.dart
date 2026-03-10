@@ -60,13 +60,13 @@ class HomeScreen extends ConsumerWidget {
                 AppNavigator.pushTo(RouteNames.multiScreenOrderPlacement);
               } else if (value == 'compass') {
                 AppNavigator.pushTo(RouteNames.compass);
-              }else if (value == 'namaz') {
+              } else if (value == 'namaz') {
                 AppNavigator.pushTo(RouteNames.namaz);
-
-              }else if (value == 'surah_list'){
+              } else if (value == 'surah_list') {
                 AppNavigator.pushTo(RouteNames.surah_list);
-              }
-              else if (value == 'others') {
+              } else if (value == 'courses') {
+                AppNavigator.pushTo(RouteNames.coursesScreen);
+              } else if (value == 'others') {
                 AppLogger.i("Others clicked");
               }
             },
@@ -78,18 +78,10 @@ class HomeScreen extends ConsumerWidget {
                 value: 'multi_screen_order_placement',
                 child: Text('Multi Screen Order Placement'),
               ),
-              PopupMenuItem(
-                value: 'compass',
-                child: Text('Compass'),
-              ),
-              PopupMenuItem(
-                value: 'namaz',
-                child: Text('Namaz'),
-              ),
-              PopupMenuItem(
-                value: 'surah_list',
-                child: Text('Surah'),
-              ),
+              PopupMenuItem(value: 'compass', child: Text('Compass')),
+              PopupMenuItem(value: 'namaz', child: Text('Namaz')),
+              PopupMenuItem(value: 'surah_list', child: Text('Surah')),
+              PopupMenuItem(value: 'courses', child: Text('Courses')),
               PopupMenuItem(value: 'others', child: Text('Others')),
             ],
           ),

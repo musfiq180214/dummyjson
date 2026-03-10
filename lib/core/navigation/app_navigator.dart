@@ -3,6 +3,7 @@ import 'package:dummyjson/features/auth/domain/login_response.dart';
 import 'package:dummyjson/features/auth/presentation/login.dart';
 import 'package:dummyjson/features/cart/presentation/cart_screen.dart';
 import 'package:dummyjson/features/compass/presentation/compass_screen.dart';
+import 'package:dummyjson/features/courses/presentation/courses.dart';
 import 'package:dummyjson/features/guest_home/presentation/guest_home_screen.dart';
 import 'package:dummyjson/features/home/domain/home_models.dart';
 import 'package:dummyjson/features/landing/presentation/landing_screen.dart';
@@ -20,6 +21,7 @@ import 'package:dummyjson/features/suras/presentation/surah_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 
 abstract class AppNavigator {
   AppNavigator._();
@@ -156,6 +158,13 @@ final List<AppRoute> appRoutes = [
         trxId: data["trxId"],
         amount: data["amount"],
       );
+    },
+  ),
+
+  AppRoute(
+    path: RouteNames.coursesScreen,
+    builder: (context, state) {
+      return const CoursesScreen();
     },
   ),
 ];

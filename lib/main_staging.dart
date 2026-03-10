@@ -11,5 +11,5 @@ void main() async {
     baseUrl: baseUrlDevelopment,
     appTitle: 'DummJSON*Flutter App Staging',
   );
-  await dummJSON();
+  await dummJSON(clearHive: false);
 }
