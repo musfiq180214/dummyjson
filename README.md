@@ -34,6 +34,8 @@ A feature-rich Flutter app demonstrating a clean architecture for both **Guest**
 
 🎓 **Courses Module** – Explore educational course content vedio playlist inside the app.
 
+📝 **Social Media Module** – Post updates and browse the feed within the app.
+
 ---
 
 ## 🎯 Why This App?
