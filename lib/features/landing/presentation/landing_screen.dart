@@ -21,6 +21,7 @@ import 'package:dummyjson/features/landing/providers/landing_provider.dart';
 import 'package:dummyjson/features/product_search/presentation/product_search_screen.dart';
 import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
 import 'package:dummyjson/features/product_list/presentation/product_list_screen.dart';
+import 'package:dummyjson/features/social/presentation/social_feed_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +42,8 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
     HomeScreen(),
     ProductListScreen(),
     ProductSearchScreen(),
-    CartScreen()
+    CartScreen(),
+    SocialFeedScreen(),
   ];
 
   bool _hasRequested = false;
@@ -169,6 +171,10 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart, color: Colors.black),
                 label: context.t.cart,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.social_distance, color: Colors.black),
+                label: "Social Feed",
               ),
             ],
           ],

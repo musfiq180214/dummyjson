@@ -17,4 +17,5 @@ abstract class RouteNames {
   static const String payment = '/payment';
   static const paymentSuccess = "/payment-success";
   static const String coursesScreen = '/courses_screen';
+  static const String socialFeed = '/social_feed';
 }

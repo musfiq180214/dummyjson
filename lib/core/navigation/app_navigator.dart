@@ -17,11 +17,11 @@ import 'package:dummyjson/features/product_list/presentation/product_detail_scre
 import 'package:dummyjson/features/product_list/presentation/product_list_screen.dart';
 import 'package:dummyjson/features/product_search/presentation/product_search_screen.dart';
 import 'package:dummyjson/features/profile/presentation/profile_screen.dart';
+import 'package:dummyjson/features/social/presentation/social_feed_screen.dart';
 import 'package:dummyjson/features/suras/presentation/surah_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 
 abstract class AppNavigator {
   AppNavigator._();
@@ -165,6 +165,13 @@ final List<AppRoute> appRoutes = [
     path: RouteNames.coursesScreen,
     builder: (context, state) {
       return const CoursesScreen();
+    },
+  ),
+
+  AppRoute(
+    path: RouteNames.socialFeed,
+    builder: (context, state) {
+      return const SocialFeedScreen();
     },
   ),
 ];
