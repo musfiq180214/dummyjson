@@ -1,3 +1,4 @@
+import 'package:dummyjson/core/utils/helper.dart';
 import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Body
-      appBar: GlobalAppBar(title: "Courses", canGoBack: true,),
+      appBar: GlobalAppBar(title: context.t.courses, canGoBack: true),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -49,12 +50,16 @@ class _CoursesScreenState extends State<CoursesScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         Icon(Icons.grid_view, color: Colors.white, size: 28),
-                        Icon(Icons.notifications_none, color: Colors.white, size: 28),
+                        Icon(
+                          Icons.notifications_none,
+                          color: Colors.white,
+                          size: 28,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      'Hi, Programmer',
+                    Text(
+                      context.t.hi_programmer,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
@@ -68,7 +73,10 @@ class _CoursesScreenState extends State<CoursesScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       child: Row(
                         children: [
                           const Icon(Icons.search, color: Colors.grey),
@@ -76,8 +84,8 @@ class _CoursesScreenState extends State<CoursesScreen> {
                           Expanded(
                             child: TextField(
                               focusNode: _searchFocusNode,
-                              decoration: const InputDecoration(
-                                hintText: 'Search Here',
+                              decoration: InputDecoration(
+                                hintText: context.t.search_here,
                                 hintStyle: TextStyle(color: Colors.black54),
                                 border: InputBorder.none,
                                 isDense: true,
@@ -98,14 +106,22 @@ class _CoursesScreenState extends State<CoursesScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-
                     const SizedBox(height: 18),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const [
-                        CategoryButton(icon: Icons.storefront, label: 'BookStore'),
-                        CategoryButton(icon: Icons.live_tv, label: 'Live Course'),
-                        CategoryButton(icon: Icons.emoji_events, label: 'LeaderBoard'),
+                      children: [
+                        CategoryButton(
+                          icon: Icons.storefront,
+                          label: context.t.book_store,
+                        ),
+                        CategoryButton(
+                          icon: Icons.live_tv,
+                          label: context.t.live_courses,
+                        ),
+                        CategoryButton(
+                          icon: Icons.emoji_events,
+                          label: context.t.leader_board,
+                        ),
                       ],
                     ),
                   ],
@@ -118,16 +134,22 @@ class _CoursesScreenState extends State<CoursesScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text(
-                        'Courses',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        context.t.courses,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Text(
-                      'See All',
-                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
+                      context.t.see_all,
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
@@ -203,7 +225,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                           onTap: () {
                             Navigator.push(
                               context,
-                               MaterialPageRoute(
+                              MaterialPageRoute(
                                 builder: (_) => CourseDetailScreen(
                                   courseTitle: 'C#',
                                   playlist: CSharpVideos,

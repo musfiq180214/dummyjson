@@ -104,7 +104,7 @@ class MyApp extends ConsumerWidget {
   To RUN Staging:
   flutter run --flavor staging -t lib/main_staging.dart
   To Build Staging APK:
-  flutter build apk --debug -t lib/main_staging.dart
+  flutter build apk --flavor staging -t lib/main_staging.dart
   To Build Production APK (which can be shared): 
   flutter build apk --flavor production -t lib/main_production.dart
   Installable Debug APK to share is: app-staging-debug.apk

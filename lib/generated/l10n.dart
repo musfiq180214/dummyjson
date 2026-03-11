@@ -213,6 +213,71 @@ class S {
   String get cart {
     return Intl.message('Cart', name: 'cart', desc: '', args: []);
   }
+
+  /// `Courses`
+  String get courses {
+    return Intl.message('Courses', name: 'courses', desc: '', args: []);
+  }
+
+  /// `Hi Programmer`
+  String get hi_programmer {
+    return Intl.message(
+      'Hi Programmer',
+      name: 'hi_programmer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book Store`
+  String get book_store {
+    return Intl.message('Book Store', name: 'book_store', desc: '', args: []);
+  }
+
+  /// `Live Courses`
+  String get live_courses {
+    return Intl.message(
+      'Live Courses',
+      name: 'live_courses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LeaderBoard`
+  String get leader_board {
+    return Intl.message(
+      'LeaderBoard',
+      name: 'leader_board',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a video to play`
+  String get select_vedio {
+    return Intl.message(
+      'Select a video to play',
+      name: 'select_vedio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See All`
+  String get see_all {
+    return Intl.message('See All', name: 'see_all', desc: '', args: []);
+  }
+
+  /// `Search here...`
+  String get search_here {
+    return Intl.message(
+      'Search here...',
+      name: 'search_here',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

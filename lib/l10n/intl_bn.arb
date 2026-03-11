@@ -20,6 +20,13 @@
     "product_details": "প্রোডাক্ট বিবরণ",
     "refresh": "রিফ্রেশ",
     "kibla": "কিবলা",
-    "cart": "কার্ট"
-
+    "cart": "কার্ট",
+    "courses": "কোর্সসমূহ",
+    "hi_programmer": "হাই প্রোগ্রামার",
+    "book_store": "বুকস্টোর",
+    "live_courses": "লাইভ কোর্সসমূহ",
+    "leader_board": "লিডারবোর্ড",
+    "select_vedio": "প্লে করতে একটি ভিডিও নির্বাচন করুন",
+    "see_all": "সব দেখুন",
+    "search_here": "এখানে খুঁজুন..."
 }

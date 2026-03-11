@@ -22,13 +22,18 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "book_store": MessageLookupByLibrary.simpleMessage("Book Store"),
     "cart": MessageLookupByLibrary.simpleMessage("Cart"),
+    "courses": MessageLookupByLibrary.simpleMessage("Courses"),
     "enter_username": MessageLookupByLibrary.simpleMessage(" Enter Username"),
     "guest": MessageLookupByLibrary.simpleMessage("Guest"),
     "guest_home": MessageLookupByLibrary.simpleMessage("Guest Home"),
     "guest_other": MessageLookupByLibrary.simpleMessage("Guest Other"),
+    "hi_programmer": MessageLookupByLibrary.simpleMessage("Hi Programmer"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "kibla": MessageLookupByLibrary.simpleMessage("Kibla"),
+    "leader_board": MessageLookupByLibrary.simpleMessage("LeaderBoard"),
+    "live_courses": MessageLookupByLibrary.simpleMessage("Live Courses"),
     "new_to_app": MessageLookupByLibrary.simpleMessage("New to this app?"),
     "please_enter_pass": MessageLookupByLibrary.simpleMessage("Enter Password"),
     "please_enter_username": MessageLookupByLibrary.simpleMessage(
@@ -40,7 +45,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "product_search": MessageLookupByLibrary.simpleMessage("Product Search"),
     "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
+    "search_here": MessageLookupByLibrary.simpleMessage("Search here..."),
     "search_product": MessageLookupByLibrary.simpleMessage("Search Product..."),
+    "see_all": MessageLookupByLibrary.simpleMessage("See All"),
+    "select_vedio": MessageLookupByLibrary.simpleMessage(
+      "Select a video to play",
+    ),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
     "type_to_search": MessageLookupByLibrary.simpleMessage("Type to Search"),
     "welcome_guest": MessageLookupByLibrary.simpleMessage("Welcome Guest"),

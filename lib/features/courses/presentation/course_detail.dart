@@ -1,3 +1,5 @@
+import 'package:dummyjson/core/utils/helper.dart';
+import 'package:dummyjson/core/widgets/global_appbar.dart';
 import 'package:dummyjson/features/courses/presentation/thank_you_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,8 +26,10 @@ class CourseDetailScreen extends StatelessWidget {
       create: (_) => VideoProvider(playlist: playlist),
       child: Builder(
         builder: (context) {
-          final videoProvider =
-          Provider.of<VideoProvider>(context, listen: false);
+          final videoProvider = Provider.of<VideoProvider>(
+            context,
+            listen: false,
+          );
 
           // Playlist end callback
           videoProvider.onPlaylistEnd = () {
@@ -35,7 +39,8 @@ class CourseDetailScreen extends StatelessWidget {
           };
 
           return Scaffold(
-            appBar: AppBar(title: Text(courseTitle), centerTitle: true),
+            appBar: GlobalAppBar(title: courseTitle, canGoBack: true),
+            // appBar: AppBar(title: Text(courseTitle), centerTitle: true),
             body: Consumer<VideoProvider>(
               builder: (context, videoProvider, _) {
                 final currentIndex = videoProvider.currentIndex;
@@ -62,11 +67,13 @@ class CourseDetailScreen extends StatelessWidget {
                       Container(
                         height: 220,
                         color: Colors.black12,
-                        child: const Center(
+                        child: Center(
                           child: Text(
-                            'Select a video to play',
+                            context.t.select_vedio,
                             style: TextStyle(
-                                fontSize: 16, color: Colors.black54),
+                              fontSize: 16,
+                              color: Colors.black54,
+                            ),
                           ),
                         ),
                       ),
@@ -84,7 +91,9 @@ class CourseDetailScreen extends StatelessWidget {
                             color: isPlaying ? Colors.blue.shade50 : null,
                             child: ListTile(
                               contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
                               title: Text(
                                 video.title,
                                 style: TextStyle(
@@ -96,8 +105,10 @@ class CourseDetailScreen extends StatelessWidget {
                               ),
                               subtitle: Text(video.duration),
                               trailing: isPlaying
-                                  ? const Icon(Icons.play_arrow,
-                                  color: Colors.blue)
+                                  ? const Icon(
+                                      Icons.play_arrow,
+                                      color: Colors.blue,
+                                    )
                                   : null,
                               onTap: () {
                                 videoProvider.playVideo(video, index: index);
@@ -166,4 +177,3 @@ class CourseDetailScreen extends StatelessWidget {
     );
   }
 }
-

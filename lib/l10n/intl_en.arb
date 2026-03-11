@@ -20,5 +20,13 @@
     "product_details": "Product Details",
     "refresh": "Refresh",
     "kibla": "Kibla",
-    "cart": "Cart"
+    "cart": "Cart",
+    "courses": "Courses",
+    "hi_programmer": "Hi Programmer",
+    "book_store": "Book Store",
+    "live_courses": "Live Courses",
+    "leader_board": "LeaderBoard",
+    "select_vedio": "Select a video to play",
+    "see_all": "See All",
+    "search_here": "Search here..."
 }
