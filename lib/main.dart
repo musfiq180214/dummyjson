@@ -6,8 +6,10 @@ import 'package:dummyjson/core/theme/theme_provider.dart';
 import 'package:dummyjson/core/utils/enums.dart';
 import 'package:dummyjson/core/utils/logger.dart';
 import 'package:dummyjson/core/utils/user_utils.dart';
+import 'package:dummyjson/firebase_options.dart';
 import 'package:dummyjson/flavour_config.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -19,6 +21,7 @@ import 'core/navigation/app_navigator.dart';
 Future<void> dummJSON({bool clearHive = false}) async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
 
   if (clearHive) {
