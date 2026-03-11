@@ -36,7 +36,8 @@ A feature-rich Flutter app demonstrating a clean architecture for both **Guest**
 
 📝 **Social Media Module** – Post updates and browse the feed within the app.
 
----
+🔥 **Firebase Integration** ![Firebase](https://upload.wikimedia.org/wikipedia/commons/3/37/Firebase_Logo.svg) – Posts are saved and fetched from Firebase Firestore for real-time updates and persistent storage.
+
 
 ## 🎯 Why This App?
 
