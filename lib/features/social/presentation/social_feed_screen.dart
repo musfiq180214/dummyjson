@@ -168,13 +168,11 @@ class _SocialFeedScreenState extends ConsumerState<SocialFeedScreen> {
   }
 
   Widget _buildPostCard(Post post) {
-    final createdAtStr = post.createdAt != null
-        ? "${post.createdAt.day.toString().padLeft(2, '0')}/"
+    final createdAtStr = "${post.createdAt.day.toString().padLeft(2, '0')}/"
               "${post.createdAt.month.toString().padLeft(2, '0')}/"
               "${post.createdAt.year} "
               "${post.createdAt.hour.toString().padLeft(2, '0')}:"
-              "${post.createdAt.minute.toString().padLeft(2, '0')}"
-        : 'Unknown';
+              "${post.createdAt.minute.toString().padLeft(2, '0')}";
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
